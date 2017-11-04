@@ -125,7 +125,7 @@ public class Photo extends DataObject {
 	/**
 	 * Location
 	 */
-	protected Location location;
+	public Location location;
 	
 	/**
 	 *
@@ -422,19 +422,5 @@ public class Photo extends DataObject {
 	public void setNoNewPraise() {
 		noVotesAtLastNotification = noVotes;
 		incWriteCount();
-	}
-	
-	/**
-	 * @methodtype setLocation
-	 */
-	public void setLocation(Coordinates newLocation) {
-		location.setCoordinates(newLocation);
-	}
-	
-	/**
-	 * @methodtype getLocation
-	 */
-	public Coordinates getLocation() {
-		return location.getCoordinates();
 	}
 }

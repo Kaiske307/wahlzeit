@@ -1,3 +1,11 @@
+/*
+ * Location.java
+ * 
+ * ADAP-CW03
+ *
+ * 30.10.2017
+ */
+
 package org.wahlzeit.model;
 
 
@@ -8,46 +16,13 @@ public class Location{
 	/*
 	 * Class Variables and Constants
 	 */
-	private Coordinates Coords;
-	private String		Name;
-	
+	private Coordinate Coords;
 	
 	/**
 	 * @methodtype Constructor
 	 */
-	public Location(double x, double y, String name) {
-		Coords = new Coordinates(x, y);
-		Name = name;
+	public Location(double x, double y, double z) {
+		Coords = new Coordinate(x, y, z);
 	}
 	
-	/**
-	 * @methodtype Set Location Name
-	 */
-	public void setLocationName(String name) {
-		Name = name;
-	}
-	
-	/**
-	 * @methodtype get Location Name
-	 */
-	public String getLocationName() {
-		return Name;
-	}
-	
-	/**
-	 * @methodtype get Coordinates
-	 */
-	public Coordinates getCoordinates() {
-		return Coords;
-	}
-	
-	/**
-	 * @methodtype set Coordinates
-	 */
-	public void setCoordinates(Coordinates newCoords) {
-		if(!Coords.isEqual(newCoords)){
-			Coords.setX(newCoords.getX());
-			Coords.setY(newCoords.getY());
-		}
-	}
 }
