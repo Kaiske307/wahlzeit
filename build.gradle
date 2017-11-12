@@ -51,11 +51,15 @@ dependencies {
     testCompile 'org.mockito:mockito-core:1.10.19'
 }
 
-test {
-    filter {
-        includeTestsMatching "org.wahlzeit.*"
-    }
-}
+//test {
+//    filter {
+//        includeTestsMatching "org.wahlzeit.*"
+//    }
+//}
+ test {
+	exclude '**/*TestSuite.class'
+ }
+
 
 appengine {
     httpPort = 8080
