@@ -40,6 +40,9 @@ import org.junit.runner.RunWith;
 	org.wahlzeit.model.GuestTest.class,
 	org.wahlzeit.model.LocationTest.class,
 	org.wahlzeit.model.PhotoFilterTest.class,
+	org.wahlzeit.model.ShirtPhotoTest.class,
+	org.wahlzeit.model.ShirtPhotoFactoryTest.class,
+	org.wahlzeit.model.ShirtPhotoManagerTest.class,
 	org.wahlzeit.model.TagsTest.class,
 	org.wahlzeit.model.UserStatusTest.class,
 	org.wahlzeit.model.ValueTest.class
