@@ -35,7 +35,6 @@ import org.junit.runner.RunWith;
 @SuiteClasses({
 	org.wahlzeit.model.persistence.AbstractAdapterTest.class,
 	org.wahlzeit.model.persistence.DatastoreAdapterTest.class,
-	org.wahlzeit.model.persistence.GcsAdapterTest.class
 })
 
 
