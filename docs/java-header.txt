@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006-2015 by Dirk Riehle, http://dirkriehle.com
+ * Copyright (c) 2017 Kai-Malte Böhling
  *
  * This file is part of the Wahlzeit rating application.
  *
