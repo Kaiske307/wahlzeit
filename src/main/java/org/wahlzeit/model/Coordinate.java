@@ -26,6 +26,8 @@
 
 package org.wahlzeit.model;
 
+import java.io.IOException;
+
 public class Coordinate{
 
 	/*
@@ -100,12 +102,18 @@ public class Coordinate{
 	}
 	
 	/**
+	 * @throws IOException 
 	 * @methodtype get X Distance
 	 */
-	public double getXDistance(Coordinate distCoord) {
+	public double getXDistance(Coordinate distCoord) throws IOException {
+		
+		if(distCoord == null) {
+			throw new IOException("getXDistance() distCoord is null");
+		}
+				
 		double xDist = 0.0;
 		
-		xDist = getX() - distCoord.getX();
+		xDist = Math.abs(getX() - distCoord.getX());
 		
 		if(xDist <= MAX_VARIANCE){
 			xDist = 0.0;
@@ -115,12 +123,19 @@ public class Coordinate{
 	}
 	
 	/**
+	 * @throws IOException 
 	 * @methodtype get Y Distance
 	 */
-	public double getYDistance(Coordinate distCoord) {
+	public double getYDistance(Coordinate distCoord) throws IOException {
+		
+		if(distCoord == null) {
+			throw new IOException("getYDistance() distCoord is null");
+		}
+		
+		
 		double yDist = 0.0;
 		
-		yDist = getY() - distCoord.getY();
+		yDist = Math.abs(getY() - distCoord.getY());
 		
 		if(yDist <= MAX_VARIANCE){
 			yDist = 0.0;
@@ -130,12 +145,18 @@ public class Coordinate{
 	}
 	
 	/**
+	 * @throws IOException 
 	 * @methodtype get Z Distance
 	 */
-	public double getZDistance(Coordinate distCoord) {
+	public double getZDistance(Coordinate distCoord) throws IOException {
+		
+		if(distCoord == null) {
+			throw new IOException("getZDistance() - distCoord is null");
+		}
+		
 		double zDist = 0.0;
 		
-		zDist = getZ() - distCoord.getZ();
+		zDist = Math.abs(getZ() - distCoord.getZ());
 		
 		if(zDist <= MAX_VARIANCE){
 			zDist = 0.0;
@@ -144,9 +165,15 @@ public class Coordinate{
 	}
 	
 	/**
+	 * @throws IOException 
 	 * @methodtype get Distance
 	 */
-	public double getDistance(Coordinate coord) {
+	public double getDistance(Coordinate coord) throws IOException {
+		
+		if(coord == null) {
+			throw new IOException("getDistance() coord is null");
+		}
+		
 		double distance = 0.0;
 		
 		double xDist = getXDistance(coord);
@@ -159,10 +186,15 @@ public class Coordinate{
 	}
 	
 	/**
+	 * @throws IOException 
 	 * @methodtype check if Equal
 	 */
-	public boolean isEqual(Coordinate coord) {
+	public boolean isEqual(Coordinate coord) throws IOException {
 		
+		if(coord == null) {
+			throw new IOException("isEqual() - coord is null");
+		}
+			
 		double distance = getDistance(coord);
 		
 		if(distance == 0.0) {
@@ -180,6 +212,13 @@ public class Coordinate{
 		if (!(obj instanceof Coordinate)) {
 			return false;
 		}
-		return this.isEqual((Coordinate) obj);
+		try {
+			return this.isEqual((Coordinate) obj);
+		}
+		catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
 	}
 }
