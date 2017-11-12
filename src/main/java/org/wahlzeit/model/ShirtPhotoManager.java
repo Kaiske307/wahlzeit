@@ -1,11 +1,11 @@
 /*
- * Wahlzeit Test Suite
+ * Shirt Photo Manager
  * 
  * Version 1.0
- *
- * 2017/11/04
- *
- * Copyright (c) 2017 by Kai-Malte Böhling
+ * 
+ * 2017/11/08
+ * 
+ * Copyright (c) Kai-Malte Böhling
  *
  * This file is part of the Wahlzeit photo rating application.
  *
@@ -24,22 +24,26 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package org.wahlzeit;
+package org.wahlzeit.model;
 
-import org.junit.runners.Suite;
-import org.junit.runners.Suite.SuiteClasses;
-import org.junit.runner.RunWith;
+//import java.util.logging.Logger;
 
-@RunWith(Suite.class)
-@SuiteClasses({
-	org.wahlzeit.handlers.HandlersTestSuite.class,
-	org.wahlzeit.model.ModelTestSuite.class,
-	org.wahlzeit.model.persistence.ModelPersistenceTestSuite.class,
-	org.wahlzeit.services.ServicesTestSuite.class,
-	org.wahlzeit.services.mailing.MailingTestSuite.class,
-	org.wahlzeit.utils.UtilsTestSuite.class
-})
+import com.googlecode.objectify.annotation.Subclass;
 
-public class AllTestSuite {
-	// do nothing
+
+@Subclass
+public class ShirtPhotoManager extends PhotoManager{
+
+//	Log not used in this Class
+//	private static final Logger log = Logger.getLogger(ShirtPhotoManager.class.getName());
+	
+	protected static final ShirtPhotoManager instance = new ShirtPhotoManager();
+	
+	/**
+	 * @methodtype constructor
+	 */
+	public ShirtPhotoManager() {
+		super();
+	}
+
 }
