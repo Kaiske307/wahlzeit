@@ -32,15 +32,38 @@ import com.googlecode.objectify.annotation.Subclass;
 public class ShirtPhoto extends Photo {
 
 	/**
+	 * Constants
+	 */
+	private static final String DEF_SHOP 		= "Selfmade";
+	private static final String DEF_SHOPTYPE 	= "Webstore";
+	private static final String DEF_SHIRTTYPE 	= "TShirt";
+	private static final int 	DEF_YEAR 		= 2000;
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	protected String shop 		= ""; 	// Set Shop only once
-	protected String shopType 	= ""; 	// Set Shop Type (Internet, Retailer etc) only once
-	protected String shirtType 	= ""; 	// Set Shirt Type (TShirt, VNeck, Sweater etc) only once
+	protected String shop 		= ""; 	// Shop Name
+	protected String shopType 	= ""; 	// Shop Type (Webstire, Retailer etc)
+	protected String shirtType 	= ""; 	// Set Shirt Type (TShirt, VNeck, Shirt etc)
 	protected int    year		= 0;	// The year the Shirt was bought
 		
+	/**
+	 * @methodtype Constructor
+	 */
+	public ShirtPhoto() {
+		super();
+		this.initialize(DEF_SHOP, DEF_SHOPTYPE, DEF_SHIRTTYPE, DEF_YEAR);
+	}
+	
+	/**
+	 * @methodtype Constructor
+	 */
+	public ShirtPhoto(PhotoId myId) {
+		super(myId);
+		this.initialize(DEF_SHOP, DEF_SHOPTYPE, DEF_SHIRTTYPE, DEF_YEAR);
+	}
+	
 	/**
 	 * @methodtype Constructor
 	 */
@@ -62,6 +85,34 @@ public class ShirtPhoto extends Photo {
 		this.shopType 	= shopType;
 		this.shirtType 	= shirtType;
 		this.year		= year;
+	}
+	
+	/**
+	 * @methodtype setter
+	 */
+	public void setShop(String shop) {
+		this.shop = shop;
+	}
+	
+	/**
+	 * @methodtype setter
+	 */
+	public void setShopType(String shopType) {
+		this.shopType = shopType;
+	}
+	
+	/**
+	 * @methodtype setter
+	 */
+	public void setShirtType(String shirtType) {
+		this.shirtType = shirtType;
+	}
+	
+	/**
+	 * @methodtype setter
+	 */
+	public void setYear(int year) {
+		this.year = year;
 	}
 	
 	/**

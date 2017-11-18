@@ -107,4 +107,24 @@ public class PhotoUtil {
 		log.config(LogBuilder.createSystemMessage().addParameter("Scaled image to size", size.asString()).toString());
 	}
 
+	/**
+	 * @param filename
+	 * @param id
+	 * @param uploadedImage
+	 * @return
+	 * @throws Exception 
+	 */
+	public static ShirtPhoto createShirtPhoto(String filename, PhotoId id, Image uploadedImage) throws Exception {
+		ShirtPhoto result = ShirtPhotoFactory.getInstance().createPhoto(id);
+		result.setEnding(filename.substring(filename.lastIndexOf(".") + 1));
+			
+		createImageFiles(uploadedImage, result);
+		
+		int sourceWidth = uploadedImage.getWidth();
+		int sourceHeight = uploadedImage.getHeight();
+		result.setWidthAndHeight(sourceWidth, sourceHeight);
+			
+		return result;
+	}
+
 }
