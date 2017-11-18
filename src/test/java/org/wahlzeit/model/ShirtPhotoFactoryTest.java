@@ -46,10 +46,10 @@ public class ShirtPhotoFactoryTest {
 
         assertNotNull(instance);
 	
-		ShirtPhoto pic1 = instance.createShirtPhoto("selfmade", "Retailer", "TShirt", 2015);
+		ShirtPhoto pic1 = instance.createPhoto();
 		PhotoId    id	= new PhotoId(10);
-		ShirtPhoto pic2 = instance.createShirtPhoto(id, "impericon", "Internet", "Sweater", 2012);
-		ShirtPhoto pic3 = instance.createShirtPhoto(id, "impericon", "Internet", "TShirt",  2015);
+		ShirtPhoto pic2 = instance.createPhoto(id);
+		ShirtPhoto pic3 = instance.createPhoto(id);
 	        
         assertNotNull(pic1);
         assertNotNull(pic2);

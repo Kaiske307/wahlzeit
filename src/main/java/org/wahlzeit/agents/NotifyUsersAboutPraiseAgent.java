@@ -38,8 +38,8 @@ public class NotifyUsersAboutPraiseAgent extends Agent {
 	 * Notifies all users that want to get informed if their photos have been praised.
 	 */
 	protected void doRun() {
-		Map<PhotoId, Photo> photoCache = PhotoManager.getInstance().getPhotoCache();
-		Collection<Photo> photos = photoCache.values();
+		Map<PhotoId, ? extends Photo> photoCache = PhotoManager.getInstance().getPhotoCache();
+		Collection<? extends Photo> photos = photoCache.values();
 
 		ArrayList<Photo> arrayListOfPhotos;
 		HashMap<String, ArrayList<Photo>> ownerIdPhotosMap = new HashMap<String, ArrayList<Photo>>();

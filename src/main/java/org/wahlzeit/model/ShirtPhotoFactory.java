@@ -82,15 +82,16 @@ public class ShirtPhotoFactory extends PhotoFactory{
 	/**
 	 * @methodtype factory
 	 */
-	public ShirtPhoto createShirtPhoto(String shop, String shopType, String shirtType, int year) {
-		return new ShirtPhoto(shop, shopType, shirtType, year);
+	@Override
+	public ShirtPhoto createPhoto() {
+		return new ShirtPhoto();
 	}
-
+	
 	/**
 	 * Creates a new photo with the specified id
 	 */
-	public ShirtPhoto createShirtPhoto(PhotoId id, String shop, String shopType, String shirtType, int year) {
-		return new ShirtPhoto(id, shop, shopType, shirtType, year);
+	public ShirtPhoto createPhoto(PhotoId id) {
+		return new ShirtPhoto(id);
 	}
 
 
