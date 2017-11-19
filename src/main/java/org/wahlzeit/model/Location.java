@@ -34,13 +34,13 @@ public class Location{
 	/*
 	 * Class Variables and Constants
 	 */
-	public Coordinate Coords;
+	public CartesianCoordinate Coords;
 	
 	/**
 	 * @methodtype Constructor
 	 */
 	public Location(double x, double y, double z) {
-		Coords = new Coordinate(x, y, z);
+		Coords = new CartesianCoordinate(x, y, z);
 	}
 	
 }
