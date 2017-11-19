@@ -262,7 +262,7 @@ public class CartesianCoordinate implements Coordinate {
         }
 
         double longitude = Math.atan2(y, x);
-        double latitude = Math.asin(z / radius);
+        double latitude = Math.acos(z / radius);
 
         return new SphericCoordinate(longitude, latitude, radius);
     }
