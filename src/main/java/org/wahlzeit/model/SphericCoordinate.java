@@ -23,15 +23,17 @@
  */
 package org.wahlzeit.model;
 
-public class SphericCoordinate implements Coordinate {
+import java.io.IOException;
+
+public class SphericCoordinate extends AbstractCoordinate{
 
 	/*
 	 * Class Variables and Constants
 	 */
-	public static final double DEFAULT_LONG = 0.0;
-	public static final double DEFAULT_LAT	= 0.0;
-	public static final double DEFAULT_RAD	= 0.0;
-	public static final double MAX_VARIANCE = 0.0000001;
+	private final double MAX_LONGITUDE = Math.PI;
+	private final double MIN_LONGITUDE = 0.0;
+	private final double MAX_LATITUDE  = Math.PI;
+	private final double MIN_LATITUDE  = -Math.PI;
 	private double longitude;	// 0 to pi
 	private double latitude;	// -pi to pi
 	private double radius;
@@ -40,15 +42,27 @@ public class SphericCoordinate implements Coordinate {
 	 * @methodtype Constructor
 	 */
 	public SphericCoordinate() {
-		longitude 	= DEFAULT_LONG;
-		latitude  	= DEFAULT_LAT;
-		radius		= DEFAULT_RAD;
+		longitude 	= DEFAULT_VALUE;
+		latitude  	= DEFAULT_VALUE;
+		radius		= DEFAULT_VALUE;
 	}
 	
 	/**
 	 * @methodtype Constructor
 	 */
 	public SphericCoordinate(double longitude, double latitude, double radius) {
+		
+		if (longitude < MIN_LONGITUDE ||
+			longitude > MAX_LONGITUDE) {
+			throw new IllegalArgumentException("Longitude is not in the range of [-180..+180]!");
+		}
+		if (latitude < MIN_LATITUDE ||
+			latitude > MAX_LATITUDE) {
+			throw new IllegalArgumentException("Latitude is not in the range of [-90..+90]!");
+		}
+		if (radius < 0.0) {
+			throw new IllegalArgumentException("Radius must be a positive value!");
+		}
 		this.longitude 	= longitude;
 		this.latitude  	= latitude;
 		this.radius 	= radius;
@@ -75,15 +89,28 @@ public class SphericCoordinate implements Coordinate {
 	/**
 	 * @methodtype setter
 	 */
-	public void setLongitude(double longitude) {
-		this.longitude = longitude;
+	public void setLongitude(double longitude) throws IOException{
+		if (longitude <= MAX_LONGITUDE &&
+			longitude >= MIN_LONGITUDE) {
+			this.longitude = longitude;
+		}
+		else {
+			throw new IOException("setLongitude() Longitude Input is out of Range");
+		}
+			
 	}
 	
 	/**
 	 * @methodtype setter
 	 */
-	public void setLatitude(double latitude) {
-		this.latitude = latitude;
+	public void setLatitude(double latitude) throws IOException{
+		if (latitude <= MAX_LATITUDE &&
+			latitude <= MIN_LATITUDE) {
+			this.latitude = latitude;
+		}
+		else {
+			throw new IOException("setLatitude() Latitude Input is out of Range");
+		}
 	}
 	
 	/**
@@ -126,12 +153,12 @@ public class SphericCoordinate implements Coordinate {
 	 * @methodtype getter
 	 */
 	@Override
-	public double getSphericDistance(Coordinate coord) {
-		if(coord == null) {
+	public double getSphericDistance(Coordinate coordinate) {
+		if(coordinate == null) {
 			return Double.POSITIVE_INFINITY;
 		}
-				
-		SphericCoordinate other = coord.asSphericCoordinate();
+		
+		SphericCoordinate other = ((AbstractCoordinate) coordinate).asSphericCoordinate();
 		SphericCoordinate own = this.asSphericCoordinate();
 		double deltaAngle = Math.acos(Math.sin(own.getLatitude()) * Math.sin(other.getLatitude()) +
 							Math.cos(own.getLatitude()) * Math.cos(other.getLatitude()) *
@@ -142,22 +169,6 @@ public class SphericCoordinate implements Coordinate {
 		return distance;
 	}
 	
-	/**
-	 * @methodtype boolean query
-	 */
-	public boolean isEqual(Coordinate coord){
-		if(coord == null) {
-			return false;
-		}
-			
-		double distance = getDistance(coord);
-		
-		if(distance <= MAX_VARIANCE) {
-			return true;
-		}
-		
-		return false;
-	}
 	
 	/**
 	 * @methodtype boolean query
@@ -173,18 +184,18 @@ public class SphericCoordinate implements Coordinate {
 		return this.isEqual((SphericCoordinate) obj);
 	}
 
-	 /**
-     * @methodtype conversion
-     */
-    @Override
-    public CartesianCoordinate asCartesianCoordinate() {
+	/**
+	 * @methodtype conversion
+	 */
+	@Override
+	public CartesianCoordinate asCartesianCoordinate() {
 
-        double x = radius * Math.cos(longitude) * Math.sin(latitude);
-        double y = radius * Math.sin(longitude) * Math.sin(latitude);
-        double z = radius * Math.cos(longitude);
+		double x = radius * Math.cos(longitude) * Math.sin(latitude);
+		double y = radius * Math.sin(longitude) * Math.sin(latitude);
+		double z = radius * Math.cos(longitude);
 
-        return new CartesianCoordinate(x, y, z);
-    }
+		return new CartesianCoordinate(x, y, z);
+	}
 
 	/**
 	 * @methodtype conversion

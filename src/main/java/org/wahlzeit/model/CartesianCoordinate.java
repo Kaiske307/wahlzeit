@@ -27,15 +27,11 @@
 package org.wahlzeit.model;
 
 
-public class CartesianCoordinate implements Coordinate {
+public class CartesianCoordinate extends AbstractCoordinate{
 
 	/*
 	 * Class Variables and Constants
 	 */
-	public static final double DEFAULT_X = 0.0;
-	public static final double DEFAULT_Y = 0.0;
-	public static final double DEFAULT_Z = 0.0;
-	public static final double MAX_VARIANCE = 0.0000001;
 	private double x;
 	private double y;
 	private double z;
@@ -44,9 +40,9 @@ public class CartesianCoordinate implements Coordinate {
 	 * @methodtype Constructor
 	 */
 	public CartesianCoordinate() {
-		this.x = DEFAULT_X;
-		this.y = DEFAULT_Y;
-		this.z = DEFAULT_Z;
+		this.x = DEFAULT_VALUE;
+		this.y = DEFAULT_VALUE;
+		this.z = DEFAULT_VALUE;
 	}
 	
 	/**
@@ -61,19 +57,19 @@ public class CartesianCoordinate implements Coordinate {
 	/**
 	 * @methodtype Constructor
 	 */
-	public CartesianCoordinate(Coordinate coord) {
-		this.x = coord.asCartesianCoordinate().getX();
-		this.y = coord.asCartesianCoordinate().getY();
-		this.z = coord.asCartesianCoordinate().getZ();
+	public CartesianCoordinate(Coordinate coordinate) {
+		this.x = coordinate.asCartesianCoordinate().getX();
+		this.y = coordinate.asCartesianCoordinate().getY();
+		this.z = coordinate.asCartesianCoordinate().getZ();
 	}
 	
 	/**
 	 * @methodtype setter
 	 */
-	public void setCartesianCoordinates(CartesianCoordinate coord) {
-		x = coord.getX();
-		y = coord.getY();
-		z = coord.getZ();
+	public void setCartesianCoordinates(CartesianCoordinate coordinate) {
+		x = coordinate.getX();
+		y = coordinate.getY();
+		z = coordinate.getZ();
 	}
 	
 	/**
@@ -208,26 +204,11 @@ public class CartesianCoordinate implements Coordinate {
 	/** 
 	 * @methodtype getter
 	 */
-	public double getDistance(Coordinate coord) {
-		return getCartesianDistance(coord);
+	@Override
+	public double getDistance(Coordinate coordinate) {
+		return getCartesianDistance(coordinate);
 	}
 	
-	/**
-	 * @methodtype boolean query
-	 */
-	public boolean isEqual(Coordinate coord){
-		if(coord == null) {
-			return false;
-		}
-			
-		double distance = getDistance(coord);
-		
-		if(distance <= MAX_VARIANCE) {
-			return true;
-		}
-		
-		return false;
-	}
 	
 	/**
 	 * @methodtype boolean query
@@ -257,14 +238,14 @@ public class CartesianCoordinate implements Coordinate {
 	@Override
 	public SphericCoordinate asSphericCoordinate() {
 		double radius = Math.sqrt(x * x + y * y + z * z);
-        if (radius == 0.0) {
-            return new SphericCoordinate(0.0, 0.0, 0.0);
-        }
+		if (radius == 0.0) {
+			return new SphericCoordinate(0.0, 0.0, 0.0);
+		}
 
-        double longitude = Math.atan2(y, x);
-        double latitude = Math.acos(z / radius);
+		double longitude = Math.atan2(y, x);
+		double latitude = Math.acos(z / radius);
 
-        return new SphericCoordinate(longitude, latitude, radius);
-    }
+		return new SphericCoordinate(longitude, latitude, radius);
+	}
 
 }

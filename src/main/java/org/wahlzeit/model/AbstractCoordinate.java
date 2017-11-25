@@ -1,5 +1,5 @@
 /**
- * * 19.11.2017
+ * 25.11.2017
  * 
  * org.wahlzeit.model
  * 
@@ -21,40 +21,60 @@
  * License along with this program. If not, see
  * <http://www.gnu.org/licenses/>.
  */
-
 package org.wahlzeit.model;
 
+public abstract class AbstractCoordinate implements Coordinate{
 
-public interface Coordinate {
-
+	public static final double MAX_VARIANCE  = 0.0000001;
+	public static final double DEFAULT_VALUE = 0.0;
+	
 	/**
-	 * @methodtype boolean-query.
+	 *	@methodtype constructor
 	 */
-	public boolean isEqual(Coordinate coordinate);
+	public AbstractCoordinate() {
+		// TODO Auto-generated constructor stub
+	}
 	
 	/** 
 	 * @methodtype conversion
 	 */
-	public CartesianCoordinate asCartesianCoordinate();
+	public abstract CartesianCoordinate asCartesianCoordinate();
 	
 	/**
 	 * @methodtype conversion
 	 */
-	public SphericCoordinate asSphericCoordinate();
-	
+	public abstract SphericCoordinate asSphericCoordinate();
+	  
 	/**
 	 * @methodtype query-method
 	 */
-	public double getDistance(Coordinate coordinate);
+	public abstract double getDistance(Coordinate coordinate);
 	 
 	/**
 	 * @methodtype query-method
 	 */
-	public double getCartesianDistance(Coordinate coordinate);
+	public abstract double getCartesianDistance(Coordinate coordinate);
 	 
 	/**
 	 * @methodtype query-method
 	 */
-	public double getSphericDistance(Coordinate coordinate);
+	public abstract double getSphericDistance(Coordinate coordinate);
 	
+	/**
+	 * @methodtype boolean query
+	 */
+	@Override
+	public boolean isEqual(Coordinate coordinate) {
+		if (coordinate != null) {
+			return isDoubleEqual(this.getDistance(coordinate), 0.0);
+		}
+		return false;
+	}
+	
+	/**
+	 * @methodtype boolean query
+	 */
+	private static boolean isDoubleEqual(double a, double b) {
+		return a == b ? true : Math.abs(a - b) <= MAX_VARIANCE;
+	}
 }
