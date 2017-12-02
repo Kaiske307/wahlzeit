@@ -51,7 +51,7 @@ public class SphericCoordinate extends AbstractCoordinate{
 	public SphericCoordinate(double longitude, double latitude, double radius) {
 		
 		// DbC
-		assertInvariants(longitude, latitude, radius);
+		assertClassInvariants(longitude, latitude, radius);
 		
 		this.longitude 	= longitude;
 		this.latitude  	= latitude;
@@ -173,7 +173,7 @@ public class SphericCoordinate extends AbstractCoordinate{
 	 */
 	@Override
 	public CartesianCoordinate asCartesianCoordinate() {
-		assertInvariants(longitude, latitude, radius);
+		assertClassInvariants(longitude, latitude, radius);
 		
 		double x = radius * Math.cos(longitude) * Math.sin(latitude);
 		double y = radius * Math.sin(longitude) * Math.sin(latitude);
@@ -202,7 +202,7 @@ public class SphericCoordinate extends AbstractCoordinate{
 	/**
 	 * @methodtype assertion
 	 */
-	private void assertInvariants(double longitude, double latitude, double radius) {
+	private void assertClassInvariants(double longitude, double latitude, double radius) {
 		assertLongitude(longitude);
 		assertLatitude(latitude);
 		assertRadius(radius);

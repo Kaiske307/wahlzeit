@@ -52,6 +52,8 @@ public class CartesianCoordinate extends AbstractCoordinate{
 		this.x = x;
 		this.y = y;
 		this.z = z;
+		
+		assertClassInvariants();
 	}
 	
 	/**
@@ -63,6 +65,7 @@ public class CartesianCoordinate extends AbstractCoordinate{
 		this.x = coordinate.asCartesianCoordinate().getX();
 		this.y = coordinate.asCartesianCoordinate().getY();
 		this.z = coordinate.asCartesianCoordinate().getZ();
+		assertClassInvariants();	
 	}
 	
 	/**
@@ -74,6 +77,8 @@ public class CartesianCoordinate extends AbstractCoordinate{
 		x = coordinate.getX();
 		y = coordinate.getY();
 		z = coordinate.getZ();
+		
+		assertClassInvariants();
 	}
 	
 	/**
@@ -238,6 +243,12 @@ public class CartesianCoordinate extends AbstractCoordinate{
 		double latitude = Math.acos(z / radius);
 
 		return new SphericCoordinate(longitude, latitude, radius);
+	}
+	
+	private void assertClassInvariants()
+		assert x < Double.MAX_VALUE && x > Double.MIN_VALUE;
+		assert y < Double.MAX_VALUE && y > Double.MIN_VALUE;
+		assert z < Double.MAX_VALUE && z > Double.MIN_VALUE;
 	}
 
 }
