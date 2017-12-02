@@ -245,7 +245,7 @@ public class CartesianCoordinate extends AbstractCoordinate{
 		return new SphericCoordinate(longitude, latitude, radius);
 	}
 	
-	private void assertClassInvariants()
+	private void assertClassInvariants() {
 		assert x < Double.MAX_VALUE && x > Double.MIN_VALUE;
 		assert y < Double.MAX_VALUE && y > Double.MIN_VALUE;
 		assert z < Double.MAX_VALUE && z > Double.MIN_VALUE;
