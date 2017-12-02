@@ -48,17 +48,24 @@ public abstract class AbstractCoordinate implements Coordinate{
 	/**
 	 * @methodtype query-method
 	 */
-	public abstract double getDistance(Coordinate coordinate);
+	public double getDistance(Coordinate coordinate) {
+		assertNotNull(coordinate, AbstractCoordinate.class.getName(), "getDistance()");
+		return 0.0;
+	}
 	 
 	/**
 	 * @methodtype query-method
 	 */
-	public abstract double getCartesianDistance(Coordinate coordinate);
+	public double getCartesianDistance(Coordinate coordinate) {
+		return getDistance(coordinate);
+	}
 	 
 	/**
 	 * @methodtype query-method
 	 */
-	public abstract double getSphericDistance(Coordinate coordinate);
+	public double getSphericDistance(Coordinate coordinate) {
+		return getDistance(coordinate);
+	}
 	
 	/**
 	 * @methodtype boolean query
@@ -77,4 +84,14 @@ public abstract class AbstractCoordinate implements Coordinate{
 	private static boolean isDoubleEqual(double a, double b) {
 		return a == b ? true : Math.abs(a - b) <= MAX_VARIANCE;
 	}
+	
+	/**
+	 * @methodtyp assertion
+	 */
+	void assertNotNull(Object object, String className, String function) {
+		if(object == null) {
+			throw new IllegalArgumentException("Object cannot be null in class" + className + "\tfunction:" + function);
+		}
+	}
+	
 }
