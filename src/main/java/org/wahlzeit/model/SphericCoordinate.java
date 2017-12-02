@@ -23,8 +23,6 @@
  */
 package org.wahlzeit.model;
 
-import java.io.IOException;
-
 public class SphericCoordinate extends AbstractCoordinate{
 
 	/*
@@ -52,17 +50,9 @@ public class SphericCoordinate extends AbstractCoordinate{
 	 */
 	public SphericCoordinate(double longitude, double latitude, double radius) {
 		
-		if (longitude < MIN_LONGITUDE ||
-			longitude > MAX_LONGITUDE) {
-			throw new IllegalArgumentException("Longitude is not in the range of [-180..+180]!");
-		}
-		if (latitude < MIN_LATITUDE ||
-			latitude > MAX_LATITUDE) {
-			throw new IllegalArgumentException("Latitude is not in the range of [-90..+90]!");
-		}
-		if (radius < 0.0) {
-			throw new IllegalArgumentException("Radius must be a positive value!");
-		}
+		// DbC
+		assertInvariants(longitude, latitude, radius);
+		
 		this.longitude 	= longitude;
 		this.latitude  	= latitude;
 		this.radius 	= radius;
@@ -71,52 +61,49 @@ public class SphericCoordinate extends AbstractCoordinate{
 	/**
 	 * @methodtype Constructor
 	 */
-	public SphericCoordinate(Coordinate coord) {
-		longitude = coord.asSphericCoordinate().getLongitude();
-		latitude  = coord.asSphericCoordinate().getLatitude();
-		radius	  = coord.asSphericCoordinate().getRadius();
+	public SphericCoordinate(Coordinate coordinate) {
+		assertNotNull(coordinate, SphericCoordinate.class.getName(), "SphericCoordiante(Coordiante)");
+		
+		longitude = coordinate.asSphericCoordinate().getLongitude();
+		latitude  = coordinate.asSphericCoordinate().getLatitude();
+		radius	  = coordinate.asSphericCoordinate().getRadius();
 	}
 	
 	/**
 	 * @methodtype setter
 	 */
-	public void setSphericCoordinate(Coordinate coord) {
-		longitude = coord.asSphericCoordinate().getLongitude();
-		latitude  = coord.asSphericCoordinate().getLatitude();
-		radius	  = coord.asSphericCoordinate().getRadius();
+	public void setSphericCoordinate(Coordinate coordinate) {
+		assertNotNull(coordinate, SphericCoordinate.class.getName(), "setSphericCoordinate(Coordnate)");
+		
+		longitude = coordinate.asSphericCoordinate().getLongitude();
+		latitude  = coordinate.asSphericCoordinate().getLatitude();
+		radius	  = coordinate.asSphericCoordinate().getRadius();
 	}
 		
 	/**
 	 * @methodtype setter
 	 */
-	public void setLongitude(double longitude) throws IOException{
-		if (longitude <= MAX_LONGITUDE &&
-			longitude >= MIN_LONGITUDE) {
-			this.longitude = longitude;
-		}
-		else {
-			throw new IOException("setLongitude() Longitude Input is out of Range");
-		}
-			
+	public void setLongitude(double longitude) {
+		assertLongitude(longitude);
+		
+		this.longitude = longitude;
 	}
 	
 	/**
 	 * @methodtype setter
 	 */
-	public void setLatitude(double latitude) throws IOException{
-		if (latitude <= MAX_LATITUDE &&
-			latitude <= MIN_LATITUDE) {
-			this.latitude = latitude;
-		}
-		else {
-			throw new IOException("setLatitude() Latitude Input is out of Range");
-		}
+	public void setLatitude(double latitude) {
+		assertLatitude(latitude);
+		
+		this.latitude = latitude;
 	}
 	
 	/**
 	* @methodtype setter
 	 */
 	public void setRadius(double radius) {
+		assertRadius(radius);
+		
 		this.radius = radius;
 	}
 	
@@ -154,9 +141,7 @@ public class SphericCoordinate extends AbstractCoordinate{
 	 */
 	@Override
 	public double getSphericDistance(Coordinate coordinate) {
-		if(coordinate == null) {
-			return Double.POSITIVE_INFINITY;
-		}
+		assertNotNull(coordinate, SphericCoordinate.class.getName(), "getSpericDistance()");
 		
 		SphericCoordinate other = ((AbstractCoordinate) coordinate).asSphericCoordinate();
 		SphericCoordinate own = this.asSphericCoordinate();
@@ -175,9 +160,8 @@ public class SphericCoordinate extends AbstractCoordinate{
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (obj == null) {
-			return false;
-		}
+		assertNotNull(obj, SphericCoordinate.class.getName(), "equals()");
+		
 		if (!(obj instanceof SphericCoordinate)) {
 			return false;
 		}
@@ -189,7 +173,8 @@ public class SphericCoordinate extends AbstractCoordinate{
 	 */
 	@Override
 	public CartesianCoordinate asCartesianCoordinate() {
-
+		assertInvariants(longitude, latitude, radius);
+		
 		double x = radius * Math.cos(longitude) * Math.sin(latitude);
 		double y = radius * Math.sin(longitude) * Math.sin(latitude);
 		double z = radius * Math.cos(longitude);
@@ -214,4 +199,24 @@ public class SphericCoordinate extends AbstractCoordinate{
 		return this.asCartesianCoordinate().getCartesianDistance(coordinate);
 	}
 
+	/**
+	 * @methodtype assertion
+	 */
+	private void assertInvariants(double longitude, double latitude, double radius) {
+		assertLongitude(longitude);
+		assertLatitude(latitude);
+		assertRadius(radius);
+	}
+	
+	private void assertLongitude(double longitude) {
+		assert longitude <= MAX_LONGITUDE && longitude >= MIN_LONGITUDE;
+	}
+	
+	private void assertLatitude(double latitude ) {
+		assert latitude <= MAX_LATITUDE && latitude <= MIN_LATITUDE;
+	}
+	
+	private void assertRadius(double radius) {
+		assert radius > 0.0;
+	}
 }

@@ -26,6 +26,8 @@
 
 package org.wahlzeit.model;
 
+import java.time.Year;
+
 import com.googlecode.objectify.annotation.Subclass;
 
 @Subclass
@@ -112,7 +114,14 @@ public class ShirtPhoto extends Photo {
 	 * @methodtype setter
 	 */
 	public void setYear(int year) {
-		this.year = year;
+		// Assertion DbC
+		// Year can be at maximum current Year
+		if (year <= Year.now().getValue()) {
+			this.year = year;
+		}
+		else {
+			this.year = DEF_YEAR;
+		}
 	}
 	
 	/**

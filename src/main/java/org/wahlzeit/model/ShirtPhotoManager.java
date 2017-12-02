@@ -63,19 +63,12 @@ public class ShirtPhotoManager extends PhotoManager{
 		 */
 		@Override
 		public ShirtPhoto getPhotoFromId(PhotoId id) {
+			// Assertion DbC
 			if (id == null) {
 				return null;
 			}
 	
 			ShirtPhoto result = doGetPhotoFromId(id);
-	
-			//PhotoFactory#loadPhoto(PhotoId) always returns null, so we can ignore it
-			//if (result == null) {
-			//	result = ShirtPhotoFactory.getInstance().loadPhoto(id);
-			//	if (result != null) {
-			//		doAddPhoto(result);
-			//	}
-			//}
 	
 			return result;
 		}
@@ -86,6 +79,11 @@ public class ShirtPhotoManager extends PhotoManager{
 		 */
 		@Override
 		protected ShirtPhoto doGetPhotoFromId(PhotoId id) {
+			// Assertion DbC
+			if (id == null) {
+				return null;
+			}
+			
 			return photoCache.get(id);
 		}
 	
@@ -94,6 +92,11 @@ public class ShirtPhotoManager extends PhotoManager{
 		 * @methodproperties primitive
 		 */
 		protected void doAddPhoto(ShirtPhoto myPhoto) {
+			// Assertion DbC
+			if (myPhoto == null) {
+				return;
+			}
+				
 			photoCache.put(myPhoto.getId(), myPhoto);
 		}
 	
@@ -133,6 +136,11 @@ public class ShirtPhotoManager extends PhotoManager{
 		 * @methodproperty primitive
 		 */
 		protected boolean doHasPhoto(PhotoId id) {
+			// Assertion DbC
+			if (id == null) {
+				return false;
+			}
+			
 			return photoCache.containsKey(id);
 		}
 	

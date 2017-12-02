@@ -60,6 +60,7 @@ public class ShirtPhotoFactory extends PhotoFactory{
 	 * Public singleton access method.
 	 */
 	public static synchronized ShirtPhotoFactory getInstance() {
+		// DbC
 		if (instance == null) {
 			log.config(LogBuilder.createSystemMessage().addAction("setting generic ShirtPhotoFactory").toString());
 			setInstance(new ShirtPhotoFactory());

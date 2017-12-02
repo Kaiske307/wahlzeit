@@ -58,6 +58,8 @@ public class CartesianCoordinate extends AbstractCoordinate{
 	 * @methodtype Constructor
 	 */
 	public CartesianCoordinate(Coordinate coordinate) {
+		assertNotNull(coordinate, CartesianCoordinate.class.getName(), "CartesianCoordinate()");
+		
 		this.x = coordinate.asCartesianCoordinate().getX();
 		this.y = coordinate.asCartesianCoordinate().getY();
 		this.z = coordinate.asCartesianCoordinate().getZ();
@@ -67,6 +69,8 @@ public class CartesianCoordinate extends AbstractCoordinate{
 	 * @methodtype setter
 	 */
 	public void setCartesianCoordinates(CartesianCoordinate coordinate) {
+		assertNotNull(coordinate, CartesianCoordinate.class.getName(), "setCartesianCoordinates()");
+		
 		x = coordinate.getX();
 		y = coordinate.getY();
 		z = coordinate.getZ();
@@ -118,11 +122,8 @@ public class CartesianCoordinate extends AbstractCoordinate{
 	 * @methodtype getter
 	 */
 	public double getXDistance(Coordinate distCoord){
+		assertNotNull(distCoord, CartesianCoordinate.class.getName(), "getXDistance()");
 		
-		if(distCoord == null) {
-			return Double.POSITIVE_INFINITY;
-		}
-				
 		double xDist = 0.0;
 		
 		xDist = Math.abs(getX() - distCoord.asCartesianCoordinate().getX());
@@ -138,10 +139,7 @@ public class CartesianCoordinate extends AbstractCoordinate{
 	 * @methodtype getter
 	 */
 	public double getYDistance(Coordinate distCoord){
-		
-		if(distCoord == null) {
-			return Double.POSITIVE_INFINITY;
-		}
+		assertNotNull(distCoord, CartesianCoordinate.class.getName(), "getYDistance()");
 		
 		double yDist = 0.0;
 		
@@ -158,10 +156,7 @@ public class CartesianCoordinate extends AbstractCoordinate{
 	 * @methodtype getter
 	 */
 	public double getZDistance(Coordinate distCoord){
-		
-		if(distCoord == null) {
-			return Double.POSITIVE_INFINITY;
-		}
+		assertNotNull(distCoord, CartesianCoordinate.class.getName(), "getZDistance()");
 		
 		double zDist = 0.0;
 		
@@ -178,9 +173,7 @@ public class CartesianCoordinate extends AbstractCoordinate{
 	 */
 	@Override
 	public double getCartesianDistance(Coordinate coordinate) {
-		if(coordinate == null) {
-			return Double.POSITIVE_INFINITY;
-		}
+		assertNotNull(coordinate, CartesianCoordinate.class.getName(), "getCartesianDistance()");
 				
 		double distance = 0.0;
 		
@@ -215,9 +208,8 @@ public class CartesianCoordinate extends AbstractCoordinate{
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (obj == null) {
-			return false;
-		}
+		assertNotNull(obj, CartesianCoordinate.class.getName(), "equals()");
+		
 		if (!(obj instanceof CartesianCoordinate)) {
 			return false;
 		}
