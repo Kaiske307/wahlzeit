@@ -28,6 +28,8 @@ package org.wahlzeit.model;
 
 import static org.junit.Assert.*;
 
+import java.io.IOException;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -125,10 +127,11 @@ public class CoordinateTest {
     }
 
     /**
+     * @throws IOException 
      *
      */
     @Test
-    public void testSphericEquals() {
+    public void testSphericEquals() throws IOException {
         // Null Check
         assertFalse(sphericCoord1.equals(null));
         assertFalse(sphericCoord1.isEqual(null));
