@@ -1,11 +1,11 @@
 /*
  * Shirt Photo Factory
- * 
+ *
  * Version 1.0
- * 
+ *
  * 2017/11/08
- * 
- * Copyright (c) Kai-Malte Böhling
+ *
+ * Copyright (c) Kai-Malte Bï¿½hling
  *
  * This file is part of the Wahlzeit photo rating application.
  *
@@ -23,7 +23,7 @@
  * License along with this program. If not, see
  * <http://www.gnu.org/licenses/>.
  */
- 
+
 package org.wahlzeit.model;
 
 import java.util.logging.Logger;
@@ -36,19 +36,19 @@ import com.googlecode.objectify.annotation.Subclass;
 public class ShirtPhotoFactory extends PhotoFactory{
 
 	private static final Logger log = Logger.getLogger(ShirtPhotoFactory.class.getName());
-	
+
 	/**
 	 * Hidden singleton instance; needs to be initialized from the outside.
 	 */
 	private static ShirtPhotoFactory instance = null;
-	
+
 	/**
 	 * @methodtype constructor
 	 */
 	public ShirtPhotoFactory() {
 		super();
 	}
-	
+
 	/**
 	 * Hidden singleton instance; needs to be initialized from the outside.
 	 */
@@ -74,12 +74,13 @@ public class ShirtPhotoFactory extends PhotoFactory{
 	 */
 	protected static synchronized void setInstance(ShirtPhotoFactory shirtPhotoFactory) {
 		if (instance != null) {
+      // Exception already existing
 			throw new IllegalStateException("attempt to initalize PhotoFactory twice");
 		}
 
 		instance = shirtPhotoFactory;
 	}
-	
+
 	/**
 	 * @methodtype factory
 	 */
@@ -87,7 +88,7 @@ public class ShirtPhotoFactory extends PhotoFactory{
 	public ShirtPhoto createPhoto() {
 		return new ShirtPhoto();
 	}
-	
+
 	/**
 	 * Creates a new photo with the specified id
 	 */

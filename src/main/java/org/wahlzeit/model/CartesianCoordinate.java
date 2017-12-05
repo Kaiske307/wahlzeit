@@ -1,11 +1,11 @@
 /*
  * Coordinate.java
- * 
+ *
  * Version 1.0
  *
  * 2017/10/30
- * 
- * Copyright (c) 2017 by Kai-Malte Böhling
+ *
+ * Copyright (c) 2017 by Kai-Malte Bï¿½hling
  *
  * This file is part of the Wahlzeit photo rating application.
  *
@@ -35,7 +35,7 @@ public class CartesianCoordinate extends AbstractCoordinate{
 	private double x;
 	private double y;
 	private double z;
-	
+
 	/**
 	 * @methodtype Constructor
 	 */
@@ -44,7 +44,7 @@ public class CartesianCoordinate extends AbstractCoordinate{
 		this.y = DEFAULT_VALUE;
 		this.z = DEFAULT_VALUE;
 	}
-	
+
 	/**
 	 * @methodtype Constructor
 	 */
@@ -52,142 +52,142 @@ public class CartesianCoordinate extends AbstractCoordinate{
 		this.x = x;
 		this.y = y;
 		this.z = z;
-		
+
 		assertClassInvariants();
 	}
-	
+
 	/**
 	 * @methodtype Constructor
 	 */
 	public CartesianCoordinate(Coordinate coordinate) {
 		assertNotNull(coordinate, CartesianCoordinate.class.getName(), "CartesianCoordinate()");
-		
+
 		this.x = coordinate.asCartesianCoordinate().getX();
 		this.y = coordinate.asCartesianCoordinate().getY();
 		this.z = coordinate.asCartesianCoordinate().getZ();
-		assertClassInvariants();	
+		assertClassInvariants();
 	}
-	
+
 	/**
 	 * @methodtype setter
 	 */
 	public void setCartesianCoordinates(CartesianCoordinate coordinate) {
 		assertNotNull(coordinate, CartesianCoordinate.class.getName(), "setCartesianCoordinates()");
-		
+
 		x = coordinate.getX();
 		y = coordinate.getY();
 		z = coordinate.getZ();
-		
+
 		assertClassInvariants();
 	}
-	
+
 	/**
 	 * @methodtype setter
 	 */
 	public void setX(double x) {
 		this.x = x;
 	}
-	
+
 	/**
 	 * @methodtype setter
 	 */
 	public void setY(double y) {
 		this.y = y;
 	}
-	
+
 	/**
 	* @methodtype setter
 	 */
 	public void setZ(double z) {
 		this.z = z;
 	}
-	
+
 	/**
 	 * @methodtype getter
 	 */
 	public double getX() {
 		return x;
 	}
-	
+
 	/**
 	 * @methodtype getter
 	 */
 	public double getY() {
 		return y;
 	}
-	
+
 	/**
 	 * @methodtype getter
 	 */
 	public double getZ() {
 		return z;
 	}
-	
+
 	/**
 	 * @methodtype getter
 	 */
 	public double getXDistance(Coordinate distCoord){
 		assertNotNull(distCoord, CartesianCoordinate.class.getName(), "getXDistance()");
-		
+
 		double xDist = 0.0;
-		
+
 		xDist = Math.abs(getX() - distCoord.asCartesianCoordinate().getX());
-		
+
 		if(xDist <= MAX_VARIANCE){
 			xDist = 0.0;
 		}
-		
+
 		return xDist;
 	}
-	
+
 	/**
 	 * @methodtype getter
 	 */
 	public double getYDistance(Coordinate distCoord){
 		assertNotNull(distCoord, CartesianCoordinate.class.getName(), "getYDistance()");
-		
+
 		double yDist = 0.0;
-		
+
 		yDist = Math.abs(getY() - distCoord.asCartesianCoordinate().getY());
-		
+
 		if(yDist <= MAX_VARIANCE){
 			yDist = 0.0;
 		}
-		
+
 		return yDist;
 	}
-	
+
 	/**
 	 * @methodtype getter
 	 */
 	public double getZDistance(Coordinate distCoord){
 		assertNotNull(distCoord, CartesianCoordinate.class.getName(), "getZDistance()");
-		
+
 		double zDist = 0.0;
-		
+
 		zDist = Math.abs(getZ() - distCoord.asCartesianCoordinate().getZ());
-		
+
 		if(zDist <= MAX_VARIANCE){
 			zDist = 0.0;
 		}
 		return zDist;
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see org.wahlzeit.model.Coordinate#getCartesianDistance(org.wahlzeit.model.Coordinate)
 	 */
 	@Override
 	public double getCartesianDistance(Coordinate coordinate) {
 		assertNotNull(coordinate, CartesianCoordinate.class.getName(), "getCartesianDistance()");
-				
+
 		double distance = 0.0;
-		
+
 		double xDist = this.asCartesianCoordinate().getXDistance(coordinate);
 		double yDist = this.asCartesianCoordinate().getYDistance(coordinate);
 		double zDist = this.asCartesianCoordinate().getZDistance(coordinate);
-		
+
 		distance = Math.abs(Math.pow(xDist, 2) + Math.pow(yDist, 2) + Math.pow(zDist, 2));
-		
+
 		return distance;
 	}
 
@@ -198,23 +198,23 @@ public class CartesianCoordinate extends AbstractCoordinate{
 	public double getSphericDistance(Coordinate coordinate) {
 		return this.asSphericCoordinate().getSphericDistance(coordinate);
 	}
-	
-	/** 
+
+	/**
 	 * @methodtype getter
 	 */
 	@Override
 	public double getDistance(Coordinate coordinate) {
 		return getCartesianDistance(coordinate);
 	}
-	
-	
+
+
 	/**
 	 * @methodtype boolean query
 	 */
 	@Override
 	public boolean equals(Object obj) {
 		assertNotNull(obj, CartesianCoordinate.class.getName(), "equals()");
-		
+
 		if (!(obj instanceof CartesianCoordinate)) {
 			return false;
 		}
@@ -244,11 +244,20 @@ public class CartesianCoordinate extends AbstractCoordinate{
 
 		return new SphericCoordinate(longitude, latitude, radius);
 	}
-	
+
 	private void assertClassInvariants() {
-		assert x < Double.MAX_VALUE && x > Double.MIN_VALUE;
-		assert y < Double.MAX_VALUE && y > Double.MIN_VALUE;
-		assert z < Double.MAX_VALUE && z > Double.MIN_VALUE;
+		if( x < Double.MAX_VALUE &&
+		 		x > Double.MIN_VALUE ){
+					throw new IllegalArgumentException("X-Coordinate out of Range");
+				}
+		if( y < Double.MAX_VALUE &&
+		 		y > Double.MIN_VALUE ){
+					throw new IllegalArgumentException("X-Coordinate out of Range");
+				}
+		if( z < Double.MAX_VALUE &&
+				z > Double.MIN_VALUE){
+					throw new IllegalArgumentException("X-Coordinate out of Range");
+		}
 	}
 
 }

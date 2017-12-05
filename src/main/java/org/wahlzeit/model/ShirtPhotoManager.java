@@ -1,11 +1,11 @@
 /*
  * Shirt Photo Manager
- * 
+ *
  * Version 1.0
- * 
+ *
  * 2017/11/08
- * 
- * Copyright (c) Kai-Malte Böhling
+ *
+ * Copyright (c) Kai-Malte Bï¿½hling
  *
  * This file is part of the Wahlzeit photo rating application.
  *
@@ -43,21 +43,21 @@ import com.google.appengine.api.images.Image;
 public class ShirtPhotoManager extends PhotoManager{
 
 	private static final Logger log = Logger.getLogger(ShirtPhotoManager.class.getName());
-	
+
 	protected static ShirtPhotoManager instance = new ShirtPhotoManager();
-	
+
 	/**
 	* In-memory cache for photos
 	*/
 	protected Map<PhotoId, ShirtPhoto> photoCache = new HashMap<>();
-	
+
 	/**
 	 * @methodtype constructor
 	 */
 	public ShirtPhotoManager() {
 		super();
 	}
-	
+
 	/**
 		 *
 		 */
@@ -67,12 +67,12 @@ public class ShirtPhotoManager extends PhotoManager{
 			if (id == null) {
 				return null;
 			}
-	
+
 			ShirtPhoto result = doGetPhotoFromId(id);
-	
+
 			return result;
 		}
-	
+
 		/**
 		 * @methodtype get
 		 * @methodproperties primitive
@@ -81,12 +81,12 @@ public class ShirtPhotoManager extends PhotoManager{
 		protected ShirtPhoto doGetPhotoFromId(PhotoId id) {
 			// Assertion DbC
 			if (id == null) {
-				return null;
+				throw new IllegalArgumentException("PhotoId cannot be null");
 			}
-			
+
 			return photoCache.get(id);
 		}
-	
+
 		/**
 		 * @methodtype command
 		 * @methodproperties primitive
@@ -94,12 +94,12 @@ public class ShirtPhotoManager extends PhotoManager{
 		protected void doAddPhoto(ShirtPhoto myPhoto) {
 			// Assertion DbC
 			if (myPhoto == null) {
-				return;
+				throw new IllegalArgumentException("Cannot add Null Object as Photo");
 			}
-				
+
 			photoCache.put(myPhoto.getId(), myPhoto);
 		}
-	
+
 		/**
 		 * @methodtype command
 		 *
@@ -115,7 +115,7 @@ public class ShirtPhotoManager extends PhotoManager{
 					return existingPhotos;
 				}
 			});
-	
+
 			for (ShirtPhoto photo : existingPhotos) {
 				if (!doHasPhoto(photo.getId())) {
 					log.config(LogBuilder.createSystemMessage().
@@ -127,10 +127,10 @@ public class ShirtPhotoManager extends PhotoManager{
 							addParameter("Already loaded ShirtPhoto", photo.getIdAsString()).toString());
 				}
 			}
-	
+
 			log.info(LogBuilder.createSystemMessage().addMessage("All ShirtPhotos loaded.").toString());
 		}
-	
+
 		/**
 		 * @methodtype boolean-query
 		 * @methodproperty primitive
@@ -140,10 +140,10 @@ public class ShirtPhotoManager extends PhotoManager{
 			if (id == null) {
 				return false;
 			}
-			
+
 			return photoCache.containsKey(id);
 		}
-	
+
 		@Override
 		protected void updateDependents(Persistent obj) {
 			if (obj instanceof ShirtPhoto) {
@@ -155,7 +155,7 @@ public class ShirtPhotoManager extends PhotoManager{
 				userManager.saveClient(owner);
 			}
 		}
-	
+
 		/**
 		 *
 		 */
@@ -163,7 +163,7 @@ public class ShirtPhotoManager extends PhotoManager{
 		public void savePhotos() throws IOException{
 			updateObjects(photoCache.values());
 		}
-	
+
 		/**
 	 * @methodtype get
 	 */
@@ -171,7 +171,7 @@ public class ShirtPhotoManager extends PhotoManager{
 	public Map<PhotoId, ShirtPhoto> getPhotoCache() {
 		return photoCache;
 	}
-	
+
 		/**
 		 *
 		 */
@@ -179,14 +179,14 @@ public class ShirtPhotoManager extends PhotoManager{
 		public Set<ShirtPhoto> findPhotosByOwner(String ownerName) {
 			Set<ShirtPhoto> result = new HashSet<>();
 			readObjects(result, ShirtPhoto.class, Photo.OWNER_ID, ownerName);
-	
+
 			for (ShirtPhoto photo : result) {
 				doAddPhoto(photo);
 			}
-	
+
 			return result;
 		}
-	
+
 		/**
 		 *
 		 */
@@ -195,7 +195,7 @@ public class ShirtPhotoManager extends PhotoManager{
 			filter.generateDisplayablePhotoIds();
 			return getPhotoFromId(filter.getRandomDisplayablePhotoId());
 		}
-	
+
 		/**
 		 *
 		 */
@@ -206,7 +206,7 @@ public class ShirtPhotoManager extends PhotoManager{
 			addPhoto(result);
 			return result;
 		}
-	
+
 		/**
 		 * @methodtype command
 		 */
@@ -214,7 +214,7 @@ public class ShirtPhotoManager extends PhotoManager{
 			PhotoId id = photo.getId();
 			assertIsNewPhoto(id);
 			doAddPhoto(photo);
-	
+
 			GlobalsManager.getInstance().saveGlobals();
 		}
 

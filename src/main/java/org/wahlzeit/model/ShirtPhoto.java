@@ -1,11 +1,11 @@
 /*
  * Shirt Photo
- * 
- * Version 1.0 
- * 
+ *
+ * Version 1.0
+ *
  * 2017/11/07
- * 
- * Copyright (c) 2017 by Kai-Malte Böhling
+ *
+ * Copyright (c) 2017 by Kai-Malte Bï¿½hling
  *
  * This file is part of the Wahlzeit photo rating application.
  *
@@ -36,20 +36,20 @@ public class ShirtPhoto extends Photo {
 	/**
 	 * Constants
 	 */
-	private static final String DEF_SHOP 		= "Selfmade";
+	private static final String DEF_SHOP 			= "Selfmade";
 	private static final String DEF_SHOPTYPE 	= "Webstore";
-	private static final String DEF_SHIRTTYPE 	= "TShirt";
-	private static final int 	DEF_YEAR 		= 2000;
+	private static final String DEF_SHIRTTYPE = "TShirt";
+	private static final int 	DEF_YEAR 				= 2000;
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	protected String shop 		= ""; 	// Shop Name
+
+	protected String shop 			= ""; 	// Shop Name
 	protected String shopType 	= ""; 	// Shop Type (Webstire, Retailer etc)
 	protected String shirtType 	= ""; 	// Set Shirt Type (TShirt, VNeck, Shirt etc)
-	protected int    year		= 0;	// The year the Shirt was bought
-		
+	protected int    year				= 0;		// The year the Shirt was bought
+
 	/**
 	 * @methodtype Constructor
 	 */
@@ -57,7 +57,7 @@ public class ShirtPhoto extends Photo {
 		super();
 		this.initialize(DEF_SHOP, DEF_SHOPTYPE, DEF_SHIRTTYPE, DEF_YEAR);
 	}
-	
+
 	/**
 	 * @methodtype Constructor
 	 */
@@ -65,7 +65,7 @@ public class ShirtPhoto extends Photo {
 		super(myId);
 		this.initialize(DEF_SHOP, DEF_SHOPTYPE, DEF_SHIRTTYPE, DEF_YEAR);
 	}
-	
+
 	/**
 	 * @methodtype Constructor
 	 */
@@ -73,7 +73,7 @@ public class ShirtPhoto extends Photo {
 		super();
 		this.initialize(shop, shopType, shirtType, year);
 	}
-	
+
 	/**
 	 * @methodtype constructor
 	 */
@@ -81,35 +81,35 @@ public class ShirtPhoto extends Photo {
 		super(myId);
 		this.initialize(shop, shopType, shirtType, year);
 	}
-	
+
 	public void initialize(String shop, String shopType, String shirtType, int year) {
-		this.shop 		= shop;
+		this.shop 			= shop;
 		this.shopType 	= shopType;
 		this.shirtType 	= shirtType;
-		this.year		= year;
+		this.year				= year;
 	}
-	
+
 	/**
 	 * @methodtype setter
 	 */
 	public void setShop(String shop) {
 		this.shop = shop;
 	}
-	
+
 	/**
 	 * @methodtype setter
 	 */
 	public void setShopType(String shopType) {
 		this.shopType = shopType;
 	}
-	
+
 	/**
 	 * @methodtype setter
 	 */
 	public void setShirtType(String shirtType) {
 		this.shirtType = shirtType;
 	}
-	
+
 	/**
 	 * @methodtype setter
 	 */
@@ -120,31 +120,32 @@ public class ShirtPhoto extends Photo {
 			this.year = year;
 		}
 		else {
+			// No need for Exception just set an Default Value
 			this.year = DEF_YEAR;
 		}
 	}
-	
+
 	/**
 	 * @methodtype getter
 	 */
 	public String getShop() {
 		return shop;
 	}
-	
+
 	/**
 	 * @methodtype getter
 	 */
 	public String getShopType() {
 		return shopType;
 	}
-	
+
 	/**
 	 * @methodtype getter
 	 */
 	public String getShirtType() {
 		return shirtType;
 	}
-	
+
 	/**
 	 * @methodtype getter
 	 */
