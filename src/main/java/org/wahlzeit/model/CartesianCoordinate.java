@@ -26,14 +26,14 @@
 
 package org.wahlzeit.model;
 
-public class CartesianCoordinate extends AbstractCoordinate {
+public final class CartesianCoordinate extends AbstractCoordinate {
 
 	/*
 	 * Class Variables and Constants
 	 */
-	private double	x;
-	private double	y;
-	private double	z;
+	private final double	x;
+	private final double	y;
+	private final double	z;
 
 	/**
 	 * @methodtype Constructor
@@ -67,39 +67,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 		assertClassInvariants();
 	}
 
-	/**
-	 * @methodtype setter
-	 */
-	public void setCartesianCoordinates(CartesianCoordinate coordinate) {
-		assertNotNull(coordinate, CartesianCoordinate.class.getName(), "setCartesianCoordinates()");
-
-		x = coordinate.getX();
-		y = coordinate.getY();
-		z = coordinate.getZ();
-
-		assertClassInvariants();
-	}
-
-	/**
-	 * @methodtype setter
-	 */
-	public void setX(double x) {
-		this.x = x;
-	}
-
-	/**
-	 * @methodtype setter
-	 */
-	public void setY(double y) {
-		this.y = y;
-	}
-
-	/**
-	 * @methodtype setter
-	 */
-	public void setZ(double z) {
-		this.z = z;
-	}
+	// Setters no longer needed
 
 	/**
 	 * @methodtype getter
@@ -188,7 +156,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 		double yDist = this.asCartesianCoordinate().getYDistance(coordinate);
 		double zDist = this.asCartesianCoordinate().getZDistance(coordinate);
 
-		distance = Math.abs(Math.pow(xDist, 2) + Math.pow(yDist, 2) + Math.pow(zDist, 2));
+		distance = Math.sqrt(Math.pow(xDist, 2) + Math.pow(yDist, 2) + Math.pow(zDist, 2));
 
 		return distance;
 	}
@@ -250,13 +218,24 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	}
 
 	private void assertClassInvariants() {
-		if (x < Double.MAX_VALUE && x > Double.MIN_VALUE) {
+		if(Double.isNaN(x)) {
+			throw new IllegalArgumentException("X-Coordinate is not a Number");
+		}
+		if(Double.isNaN(y)) {
+			throw new IllegalArgumentException("Y-Coordinate is not a Number");	
+		}
+		if(Double.isNaN(z)) {
+			throw new IllegalArgumentException("Z-Coordinate is not a Number");
+		}
+		
+		if (x > Double.MAX_VALUE && x < Double.MIN_VALUE) {
 			throw new IllegalArgumentException("X-Coordinate out of Range");
 		}
-		if (y < Double.MAX_VALUE && y > Double.MIN_VALUE) {
+		
+		if (y > Double.MAX_VALUE && y < Double.MIN_VALUE) {
 			throw new IllegalArgumentException("X-Coordinate out of Range");
 		}
-		if (z < Double.MAX_VALUE && z > Double.MIN_VALUE) {
+		if (z > Double.MAX_VALUE && z < Double.MIN_VALUE) {
 			throw new IllegalArgumentException("X-Coordinate out of Range");
 		}
 	}

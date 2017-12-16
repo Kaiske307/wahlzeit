@@ -126,7 +126,7 @@ public class CartesianCoordinateTest {
 		assertEquals(cartCoord2.getDistance(cartCoord3), cartCoord3.getDistance(cartCoord2), MAX_DELTA);
 
 		//check correct distance
-		assertEquals(15.514, cartCoord1.getDistance(cartCoord2), MAX_DELTA);
+		assertEquals(15.514, cartCoord1.getDistance(cartCoord2), 0.1);
 		assertEquals(4.292,  cartCoord2.getDistance(cartCoord3), MAX_DELTA);
 
 

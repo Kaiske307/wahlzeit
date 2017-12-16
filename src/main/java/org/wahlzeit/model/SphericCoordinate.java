@@ -23,7 +23,7 @@
  */
 package org.wahlzeit.model;
 
-public class SphericCoordinate extends AbstractCoordinate{
+public final class SphericCoordinate extends AbstractCoordinate{
 
 	/*
 	 * Class Variables and Constants
@@ -32,9 +32,9 @@ public class SphericCoordinate extends AbstractCoordinate{
 	private final double MIN_LONGITUDE = 0.0;
 	private final double MAX_LATITUDE  = Math.PI;
 	private final double MIN_LATITUDE  = -Math.PI;
-	private double longitude;	// 0 to pi
-	private double latitude;	// -pi to pi
-	private double radius;
+	private final double longitude;	// 0 to pi
+	private final double latitude;	// -pi to pi
+	private final double radius;
 
 	/**
 	 * @methodtype Constructor
@@ -74,51 +74,7 @@ public class SphericCoordinate extends AbstractCoordinate{
 		assertClassInvariants();
 	}
 
-	/**
-	 * @methodtype setter
-	 */
-	public void setSphericCoordinate(Coordinate coordinate) {
-		assertNotNull(coordinate, SphericCoordinate.class.getName(), "setSphericCoordinate(Coordnate)");
-
-		longitude = coordinate.asSphericCoordinate().getLongitude();
-		latitude  = coordinate.asSphericCoordinate().getLatitude();
-		radius	  = coordinate.asSphericCoordinate().getRadius();
-
-		assertClassInvariants();
-	}
-
-	/**
-	 * @methodtype setter
-	 */
-	public void setLongitude(double longitude) {
-		assertLongitude(longitude);
-
-		this.longitude = longitude;
-
-		assertClassInvariants();
-	}
-
-	/**
-	 * @methodtype setter
-	 */
-	public void setLatitude(double latitude) {
-		assertLatitude(latitude);
-
-		this.latitude = latitude;
-
-		assertClassInvariants();
-	}
-
-	/**
-	* @methodtype setter
-	 */
-	public void setRadius(double radius) {
-		assertRadius(radius);
-
-		this.radius = radius;
-
-		assertClassInvariants();
-	}
+	// Setters no Longer needed
 
 	/**
 	 * @methodtype getter
@@ -226,27 +182,27 @@ public class SphericCoordinate extends AbstractCoordinate{
 	* @methodtype assertion
 	*/
 	private void assertLongitude(double longitude) {
-		if(	longitude <= MAX_LONGITUDE &&
-		 		longitude >= MIN_LONGITUDE ){
-					throw new IllegalArgumentException("Longitude out of Range");
-				}
+		if(	longitude > MAX_LONGITUDE &&
+			longitude < MIN_LONGITUDE ){
+				throw new IllegalArgumentException("Longitude out of Range");
+			}
 	}
 
 	/**
 	* @methodtype assertion
 	*/
 	private void assertLatitude(double latitude ) {
-		if( latitude <= MAX_LATITUDE &&
-				latitude <= MIN_LATITUDE ){
-					throw new IllegalArgumentException("Latitude out of Range");
-				}
+		if( latitude > MAX_LATITUDE &&
+			latitude < MIN_LATITUDE ){
+				throw new IllegalArgumentException("Latitude out of Range");
+			}
 	}
 
 	/**
 	* @methodtype assertion
 	*/
 	private void assertRadius(double radius) {
-		if (radius > 0.0){
+		if (radius < 0.0){
 			throw new IllegalArgumentException("Radius cannot be negative");
 		}
 	}
