@@ -1,11 +1,11 @@
-/*
+/**
  * Shirt Photo
  *
  * Version 1.0
  *
  * 2017/11/07
  *
- * Copyright (c) 2017 by Kai-Malte Bï¿½hling
+ * Copyright (c) 2017 by Kai-Malte Böhling
  *
  * This file is part of the Wahlzeit photo rating application.
  *

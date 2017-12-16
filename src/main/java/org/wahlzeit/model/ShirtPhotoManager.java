@@ -1,11 +1,11 @@
-/*
+/**
  * Shirt Photo Manager
  *
  * Version 1.0
  *
  * 2017/11/08
  *
- * Copyright (c) Kai-Malte Bï¿½hling
+ * Copyright (c) Kai-Malte Böhling
  *
  * This file is part of the Wahlzeit photo rating application.
  *

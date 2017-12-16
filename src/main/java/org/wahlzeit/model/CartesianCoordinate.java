@@ -1,11 +1,11 @@
-/*
+/**
  * Coordinate.java
  *
  * Version 1.0
  *
  * 2017/10/30
  *
- * Copyright (c) 2017 by Kai-Malte Bï¿½hling
+ * Copyright (c) 2017 by Kai-Malte Böhling
  *
  * This file is part of the Wahlzeit photo rating application.
  *
@@ -26,15 +26,14 @@
 
 package org.wahlzeit.model;
 
-
-public class CartesianCoordinate extends AbstractCoordinate{
+public class CartesianCoordinate extends AbstractCoordinate {
 
 	/*
 	 * Class Variables and Constants
 	 */
-	private double x;
-	private double y;
-	private double z;
+	private double	x;
+	private double	y;
+	private double	z;
 
 	/**
 	 * @methodtype Constructor
@@ -96,7 +95,7 @@ public class CartesianCoordinate extends AbstractCoordinate{
 	}
 
 	/**
-	* @methodtype setter
+	 * @methodtype setter
 	 */
 	public void setZ(double z) {
 		this.z = z;
@@ -126,14 +125,14 @@ public class CartesianCoordinate extends AbstractCoordinate{
 	/**
 	 * @methodtype getter
 	 */
-	public double getXDistance(Coordinate distCoord){
+	public double getXDistance(Coordinate distCoord) {
 		assertNotNull(distCoord, CartesianCoordinate.class.getName(), "getXDistance()");
 
 		double xDist = 0.0;
 
 		xDist = Math.abs(getX() - distCoord.asCartesianCoordinate().getX());
 
-		if(xDist <= MAX_VARIANCE){
+		if (xDist <= MAX_VARIANCE) {
 			xDist = 0.0;
 		}
 
@@ -143,14 +142,14 @@ public class CartesianCoordinate extends AbstractCoordinate{
 	/**
 	 * @methodtype getter
 	 */
-	public double getYDistance(Coordinate distCoord){
+	public double getYDistance(Coordinate distCoord) {
 		assertNotNull(distCoord, CartesianCoordinate.class.getName(), "getYDistance()");
 
 		double yDist = 0.0;
 
 		yDist = Math.abs(getY() - distCoord.asCartesianCoordinate().getY());
 
-		if(yDist <= MAX_VARIANCE){
+		if (yDist <= MAX_VARIANCE) {
 			yDist = 0.0;
 		}
 
@@ -160,21 +159,24 @@ public class CartesianCoordinate extends AbstractCoordinate{
 	/**
 	 * @methodtype getter
 	 */
-	public double getZDistance(Coordinate distCoord){
+	public double getZDistance(Coordinate distCoord) {
 		assertNotNull(distCoord, CartesianCoordinate.class.getName(), "getZDistance()");
 
 		double zDist = 0.0;
 
 		zDist = Math.abs(getZ() - distCoord.asCartesianCoordinate().getZ());
 
-		if(zDist <= MAX_VARIANCE){
+		if (zDist <= MAX_VARIANCE) {
 			zDist = 0.0;
 		}
 		return zDist;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.wahlzeit.model.Coordinate#getCartesianDistance(org.wahlzeit.model.Coordinate)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.wahlzeit.model.Coordinate#getCartesianDistance(org.wahlzeit.model.
+	 * Coordinate)
 	 */
 	@Override
 	public double getCartesianDistance(Coordinate coordinate) {
@@ -191,8 +193,11 @@ public class CartesianCoordinate extends AbstractCoordinate{
 		return distance;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.wahlzeit.model.Coordinate#getSphericDistance(org.wahlzeit.model.Coordinate)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.wahlzeit.model.Coordinate#getSphericDistance(org.wahlzeit.model.
+	 * Coordinate)
 	 */
 	@Override
 	public double getSphericDistance(Coordinate coordinate) {
@@ -206,7 +211,6 @@ public class CartesianCoordinate extends AbstractCoordinate{
 	public double getDistance(Coordinate coordinate) {
 		return getCartesianDistance(coordinate);
 	}
-
 
 	/**
 	 * @methodtype boolean query
@@ -246,17 +250,14 @@ public class CartesianCoordinate extends AbstractCoordinate{
 	}
 
 	private void assertClassInvariants() {
-		if( x < Double.MAX_VALUE &&
-		 		x > Double.MIN_VALUE ){
-					throw new IllegalArgumentException("X-Coordinate out of Range");
-				}
-		if( y < Double.MAX_VALUE &&
-		 		y > Double.MIN_VALUE ){
-					throw new IllegalArgumentException("X-Coordinate out of Range");
-				}
-		if( z < Double.MAX_VALUE &&
-				z > Double.MIN_VALUE){
-					throw new IllegalArgumentException("X-Coordinate out of Range");
+		if (x < Double.MAX_VALUE && x > Double.MIN_VALUE) {
+			throw new IllegalArgumentException("X-Coordinate out of Range");
+		}
+		if (y < Double.MAX_VALUE && y > Double.MIN_VALUE) {
+			throw new IllegalArgumentException("X-Coordinate out of Range");
+		}
+		if (z < Double.MAX_VALUE && z > Double.MIN_VALUE) {
+			throw new IllegalArgumentException("X-Coordinate out of Range");
 		}
 	}
 

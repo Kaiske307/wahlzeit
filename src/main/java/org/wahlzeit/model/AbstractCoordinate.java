@@ -1,8 +1,8 @@
 /**
  * 25.11.2017
- * 
+ *
  * org.wahlzeit.model
- * 
+ *
  * Copyright (c) 2017 Kai-Malte Böhling
  *
  * This file is part of the Wahlzeit rating application.
@@ -27,24 +27,18 @@ public abstract class AbstractCoordinate implements Coordinate{
 
 	public static final double MAX_VARIANCE  = 0.0000001;
 	public static final double DEFAULT_VALUE = 0.0;
-	
+
+
 	/**
-	 *	@methodtype constructor
-	 */
-	public AbstractCoordinate() {
-		// TODO Auto-generated constructor stub
-	}
-	
-	/** 
 	 * @methodtype conversion
 	 */
 	public abstract CartesianCoordinate asCartesianCoordinate();
-	
+
 	/**
 	 * @methodtype conversion
 	 */
 	public abstract SphericCoordinate asSphericCoordinate();
-	  
+
 	/**
 	 * @methodtype query-method
 	 */
@@ -52,21 +46,21 @@ public abstract class AbstractCoordinate implements Coordinate{
 		assertNotNull(coordinate, AbstractCoordinate.class.getName(), "getDistance()");
 		return 0.0;
 	}
-	 
+
 	/**
 	 * @methodtype query-method
 	 */
 	public double getCartesianDistance(Coordinate coordinate) {
 		return getDistance(coordinate);
 	}
-	 
+
 	/**
 	 * @methodtype query-method
 	 */
 	public double getSphericDistance(Coordinate coordinate) {
 		return getDistance(coordinate);
 	}
-	
+
 	/**
 	 * @methodtype boolean query
 	 */
@@ -77,14 +71,14 @@ public abstract class AbstractCoordinate implements Coordinate{
 		}
 		return false;
 	}
-	
+
 	/**
 	 * @methodtype boolean query
 	 */
 	private static boolean isDoubleEqual(double a, double b) {
 		return a == b ? true : Math.abs(a - b) <= MAX_VARIANCE;
 	}
-	
+
 	/**
 	 * @methodtyp assertion
 	 */
@@ -93,5 +87,5 @@ public abstract class AbstractCoordinate implements Coordinate{
 			throw new IllegalArgumentException("Object cannot be null in class" + className + "\tfunction:" + function);
 		}
 	}
-	
+
 }

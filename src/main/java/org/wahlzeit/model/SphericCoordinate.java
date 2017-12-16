@@ -3,7 +3,7 @@
  *
  * org.wahlzeit.model
  *
- * Copyright (c) 2017 Kai-Malte Bï¿½hling
+ * Copyright (c) 2017 Kai-Malte Böhling
  *
  * This file is part of the Wahlzeit rating application.
  *
