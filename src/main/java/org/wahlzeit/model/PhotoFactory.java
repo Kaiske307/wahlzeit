@@ -24,9 +24,17 @@ import org.wahlzeit.services.LogBuilder;
 
 import java.util.logging.Logger;
 
+import org.wahlzeit.utils.DesignPattern;
+
 /**
  * An Abstract Factory for creating photos and related objects.
  */
+
+// Example from Course Schedule
+@DesignPattern(
+	patternName = "Abstract Factory",
+	patternParticipants = {"AbstractFactory", "ConcreteFactory"}
+)
 public class PhotoFactory {
 
 	private static final Logger log = Logger.getLogger(PhotoFactory.class.getName());
@@ -72,6 +80,10 @@ public class PhotoFactory {
 		instance = photoFactory;
 	}
 
+	@DesignPattern(
+		patternName= "Factory",
+		patternParticipants = {"PhotoFactory"}
+	)
 	/**
 	 * @methodtype factory
 	 */
@@ -79,6 +91,10 @@ public class PhotoFactory {
 		return new Photo();
 	}
 
+	@DesignPattern(
+			patternName= "Factory",
+			patternParticipants = {"PhotoFactory"}
+		)
 	/**
 	 * Creates a new photo with the specified id
 	 */
@@ -95,9 +111,6 @@ public class PhotoFactory {
                 OfyService.ofy().load().type(Photo.class).ancestor(KeyFactory.createKey("Application", "Wahlzeit")).filter(Photo.ID, id).first().now();
         for (PhotoSize size : PhotoSize.values()) {
             GcsFilename gcsFilename = new GcsFilename("picturebucket", filename);
-
-
-
         }*/
 		return null;
 	}

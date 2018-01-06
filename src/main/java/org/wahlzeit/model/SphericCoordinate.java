@@ -24,9 +24,13 @@
 package org.wahlzeit.model;
 
 import java.util.HashSet;
-
+import org.wahlzeit.utils.DesignPattern;
 import com.google.common.base.Objects;
 
+@DesignPattern(
+	patternName = "Value Object",
+	patternParticipants = {"SphericCoordinate"}
+	)
 public final class SphericCoordinate extends AbstractCoordinate{
 
 	static {

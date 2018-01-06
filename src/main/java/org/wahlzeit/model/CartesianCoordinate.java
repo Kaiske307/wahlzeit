@@ -27,8 +27,15 @@
 package org.wahlzeit.model;
 
 import java.util.HashSet;
+
+import org.wahlzeit.utils.DesignPattern;
+
 import com.google.common.base.Objects;
 
+@DesignPattern(
+		patternName = "Value Object",
+		patternParticipants = {"CartesianCoordinate"}
+		)
 public final class CartesianCoordinate extends AbstractCoordinate {
 
 	static {
@@ -84,6 +91,7 @@ public final class CartesianCoordinate extends AbstractCoordinate {
 	
 	/**
 	 * @methodtype getter
+	 * Original Author StrategicallyInefficient
 	 */
 	public CartesianCoordinate getCartesianCoordinate(double x, double y, double z) {
 		

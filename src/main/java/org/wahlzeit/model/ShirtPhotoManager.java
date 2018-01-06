@@ -38,6 +38,12 @@ import com.googlecode.objectify.Work;
 import com.googlecode.objectify.annotation.Subclass;
 
 import com.google.appengine.api.images.Image;
+import org.wahlzeit.utils.DesignPattern;
+
+@DesignPattern(
+	patternName = "Singleton",
+	patternParticipants = {"PhotoManager", "ShirtPhotoManager"}
+	)
 
 @Subclass
 public class ShirtPhotoManager extends PhotoManager{

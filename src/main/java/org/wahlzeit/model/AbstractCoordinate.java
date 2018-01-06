@@ -25,6 +25,13 @@ package org.wahlzeit.model;
 
 import java.util.HashSet;
 
+import org.wahlzeit.utils.DesignPattern;
+
+
+@DesignPattern(
+	patternName = "Template",
+	patternParticipants = {"AbstractCoordinate", "CartesianCoordinate", "SphericCoordinate"}
+)
 public abstract class AbstractCoordinate implements Coordinate{
 
 	public static final double MAX_VARIANCE  = 0.0000001;
@@ -40,11 +47,19 @@ public abstract class AbstractCoordinate implements Coordinate{
 	 */
 	public abstract int getHash();
 	
+	@DesignPattern(
+		patternName= "Converter",
+		patternParticipants= {"AbstractCoordinate", "CartesianCoordinate", "SphericCoordinate"}
+		)
 	/**
 	 * @methodtype conversion
 	 */
 	public abstract CartesianCoordinate asCartesianCoordinate();
 
+	@DesignPattern(
+		patternName= "Converter",
+		patternParticipants= {"AbstractCoordinate", "CartesianCoordinate", "SphericCoordinate"}
+		)
 	/**
 	 * @methodtype conversion
 	 */
