@@ -23,9 +23,17 @@
  */
 package org.wahlzeit.model;
 
+import java.util.HashSet;
+
+import com.google.common.base.Objects;
+
 public final class SphericCoordinate extends AbstractCoordinate{
 
-	/*
+	static {
+		coordinates = new HashSet<Coordinate>();
+	}
+	
+	/**
 	 * Class Variables and Constants
 	 */
 	private final double MAX_LONGITUDE = Math.PI;
@@ -73,9 +81,35 @@ public final class SphericCoordinate extends AbstractCoordinate{
 
 		assertClassInvariants();
 	}
-
-	// Setters no Longer needed
-
+	
+	/* (non-Javadoc)
+	 * @see org.wahlzeit.model.AbstractCoordinate#getHash()
+	 */
+	@Override
+	public int getHash() {
+		return Objects.hashCode(longitude, latitude, radius);
+	}
+	
+	/**
+	 * @methodtype getter
+	 * Original Author StrategicallyInefficient
+	 */
+	public SphericCoordinate getSphericCoordinate(double longitude, double latitude, double radius) {
+		
+		SphericCoordinate tempCoord = new SphericCoordinate(longitude, latitude, radius);
+		
+		if(coordinates.contains(tempCoord)) {
+			for (Coordinate coord : coordinates) {
+				if (coord.equals(tempCoord)) {
+					return (SphericCoordinate) coord;
+				}
+			}
+		}
+		
+		coordinates.add(tempCoord);
+		return tempCoord;
+	}
+	
 	/**
 	 * @methodtype getter
 	 */

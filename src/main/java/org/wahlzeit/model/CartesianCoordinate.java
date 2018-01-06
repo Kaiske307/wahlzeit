@@ -26,8 +26,15 @@
 
 package org.wahlzeit.model;
 
+import java.util.HashSet;
+import com.google.common.base.Objects;
+
 public final class CartesianCoordinate extends AbstractCoordinate {
 
+	static {
+		coordinates = new HashSet<Coordinate>();
+	}
+	
 	/*
 	 * Class Variables and Constants
 	 */
@@ -66,8 +73,33 @@ public final class CartesianCoordinate extends AbstractCoordinate {
 		this.z = coordinate.asCartesianCoordinate().getZ();
 		assertClassInvariants();
 	}
-
-	// Setters no longer needed
+	
+	/* (non-Javadoc)
+	 * @see org.wahlzeit.model.AbstractCoordinate#getHash()
+	 */
+	@Override
+	public int getHash() {
+		return Objects.hashCode(x, y, z);
+	}
+	
+	/**
+	 * @methodtype getter
+	 */
+	public CartesianCoordinate getCartesianCoordinate(double x, double y, double z) {
+		
+		CartesianCoordinate tempCoord = new CartesianCoordinate(x, y, z);
+		
+		if(coordinates.contains(tempCoord)) {
+			for (Coordinate coord : coordinates) {
+				if (coord.equals(tempCoord)) {
+					return (CartesianCoordinate) coord;
+				}
+			}
+		}
+		
+		coordinates.add(tempCoord);
+		return tempCoord;
+	}
 
 	/**
 	 * @methodtype getter

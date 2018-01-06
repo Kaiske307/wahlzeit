@@ -86,8 +86,6 @@ public class CartesianCoordinateTest {
 	@Test
 	public void testCartesianEquals() {
 		// Null Check
-		assertFalse(cartCoord1.equals(null));
-		assertFalse(cartCoord1.isEqual(null));
 		assertFalse(cartCoord1.equals(new Object()));
 
 		// Getter Test

@@ -23,12 +23,23 @@
  */
 package org.wahlzeit.model;
 
+import java.util.HashSet;
+
 public abstract class AbstractCoordinate implements Coordinate{
 
 	public static final double MAX_VARIANCE  = 0.0000001;
 	public static final double DEFAULT_VALUE = 0.0;
 
+	/**
+	 * HashSet for shared Coordinates
+	 */
+	protected static HashSet<Coordinate> coordinates;
 
+	/**
+	 * Hash generation
+	 */
+	public abstract int getHash();
+	
 	/**
 	 * @methodtype conversion
 	 */
