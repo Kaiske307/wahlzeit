@@ -65,6 +65,8 @@ public class ShirtManager {
 	 * @methodtype factory
 	 */
 	public ShirtType createShirtType(String shop, String shopType, String shirtType, int year) {
-		return new ShirtType(shop, shopType, shirtType, year);
+		
+		
+		return null;
 	}
 }
