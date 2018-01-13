@@ -109,8 +109,4 @@ public class ShirtPhotoFactory extends PhotoFactory{
 	public ShirtPhoto createPhoto(PhotoId id, ShirtType shirtType) {
 		return new ShirtPhoto(id, shirtType);
 	}
-
-
-
-
 }

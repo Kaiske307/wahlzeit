@@ -36,8 +36,6 @@ public class ShirtPhoto extends Photo {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
-	private transient Shirt shirt;
 	
 	/**
 	 * Constants
@@ -105,17 +103,4 @@ public class ShirtPhoto extends Photo {
 		ShirtManager.getInstance().createShirt(type);
 	}
 
-	/**
-	 * @return the shirt
-	 */
-	public Shirt getShirt() {
-		return shirt;
-	}
-
-	/**
-	 * @param shirt the shirt to set
-	 */
-	public void setShirt(Shirt shirt) {
-		this.shirt = shirt;
-	}
 }

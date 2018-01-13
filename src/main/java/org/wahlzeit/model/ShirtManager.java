@@ -31,6 +31,7 @@ public class ShirtManager {
 	private static ShirtManager instance = new ShirtManager();
 	
 	private List<Shirt> shirts = new ArrayList<>();
+	private List<ShirtType> shirtTypes = new ArrayList<>();
 	
 	/**
 	 * @methodtype constructor
@@ -64,9 +65,15 @@ public class ShirtManager {
 	/**
 	 * @methodtype factory
 	 */
-	public ShirtType createShirtType(String shop, String shopType, String shirtType, int year) {
+	public ShirtType createShirtType(String shop, String shopType, String shirtCutType, int year) {
+		ShirtType shirtType = new ShirtType(shop, shopType, shirtCutType, year);
 		
-		
-		return null;
+		if(shirtTypes.contains(shirtType)) {
+			return shirtTypes.get(shirtTypes.indexOf(shirtType));
+		}
+		else {
+			shirtTypes.add(shirtType);
+			return shirtType;
+		}
 	}
 }

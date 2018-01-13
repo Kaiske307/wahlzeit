@@ -47,16 +47,8 @@ public class ShirtPhotoTest {
 		ShirtPhoto pic3 = new ShirtPhoto(id, "impericon", "Retailer", "TShirt",  2015);
 		
         assertNotEquals(pic1.getId(), pic2.getId());
-        assertEquals(pic1.getShop(), "selfmade");
-        assertNotEquals(pic1.getShop(), pic2.getShop());
-        assertEquals(pic1.getShopType(), pic2.getShopType());
-        assertEquals(pic1.getShirtType(), "TShirt");
-        assertEquals(pic1.getYear(), 2015);
         
         assertEquals(pic2.getId(), pic3.getId());
-        assertNotEquals(pic2.getShop(), pic3.getShop());
-        assertNotEquals(pic2.getShopType(), pic3.getShopType());
-        assertEquals(pic2.getYear(), pic3.getYear());
 	}
 
 }
