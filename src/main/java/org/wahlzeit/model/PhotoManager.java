@@ -73,7 +73,23 @@ public class PhotoManager extends ObjectManager {
 	 *
 	 */
 	public static PhotoManager getInstance() {
+		if (instance == null) {
+			log.config(LogBuilder.createSystemMessage().addAction("setting generic PhotoManager").toString());
+			setInstance(new ShirtPhotoManager());
+		}
+
 		return instance;
+	}
+	
+	/**
+	 * Method to set the singleton instance of PhotoFactory.
+	 */
+	protected static synchronized void setInstance(PhotoManager photoManager) {
+		if (instance != null) {
+			throw new IllegalStateException("attempt to initialize PhotoManager twice");
+		}
+
+		instance = photoManager;
 	}
 
 	/**
