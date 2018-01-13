@@ -95,21 +95,6 @@ public class ShirtPhotoFactory extends PhotoFactory{
 	public ShirtPhoto createPhoto(PhotoId id) {
 		return new ShirtPhoto(id);
 	}
-	
-	/**
-	 * Creates Photo with ShirtTypes
-	 */
-	public ShirtPhoto createPhoto(ShirtType shirtType) {
-		return new ShirtPhoto(shirtType);
-	}
-	
-	/**
-	 * Creates Photo with specified ID and ShirtTypes
-	 */
-	public ShirtPhoto createPhoto(PhotoId id, ShirtType shirtType) {
-		return new ShirtPhoto(id, shirtType);
-	}
-
 
 
 

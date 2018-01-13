@@ -26,6 +26,7 @@
 
 package org.wahlzeit.model;
 
+import java.time.Year;
 
 import com.googlecode.objectify.annotation.Subclass;
 
@@ -33,34 +34,36 @@ import com.googlecode.objectify.annotation.Subclass;
 public class ShirtPhoto extends Photo {
 
 	/**
-	 * 
+	 * Constants
+	 */
+	private static final String DEF_SHOP 			= "Selfmade";
+	private static final String DEF_SHOPTYPE 	= "Webstore";
+	private static final String DEF_SHIRTTYPE = "TShirt";
+	private static final int 	DEF_YEAR 				= 2000;
+	/**
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private transient Shirt shirt;
-	
-	/**
-	 * Constants
-	 */
-	private static final String DEF_SHOP			= "Selfmade";
-	private static final String DEF_SHOPTYPE		= "Webstore";
-	private static final String DEF_SHIRTCUTTYPE	= "TShirt";
-	private static final int 	DEF_YEAR			= 2000;
-	
+	protected String shop 			= ""; 	// Shop Name
+	protected String shopType 	= ""; 	// Shop Type (Webstire, Retailer etc)
+	protected String shirtType 	= ""; 	// Set Shirt Type (TShirt, VNeck, Shirt etc)
+	protected int    year				= 0;		// The year the Shirt was bought
+
 	/**
 	 * @methodtype Constructor
 	 */
 	public ShirtPhoto() {
 		super();
-		this.initialize(DEF_SHOP, DEF_SHOPTYPE, DEF_SHIRTCUTTYPE, DEF_YEAR);
+		this.initialize(DEF_SHOP, DEF_SHOPTYPE, DEF_SHIRTTYPE, DEF_YEAR);
 	}
-	
+
 	/**
 	 * @methodtype Constructor
 	 */
 	public ShirtPhoto(PhotoId myId) {
 		super(myId);
-		this.initialize(DEF_SHOP, DEF_SHOPTYPE, DEF_SHIRTCUTTYPE, DEF_YEAR);
+		this.initialize(DEF_SHOP, DEF_SHOPTYPE, DEF_SHIRTTYPE, DEF_YEAR);
 	}
 
 	/**
@@ -70,7 +73,7 @@ public class ShirtPhoto extends Photo {
 		super();
 		this.initialize(shop, shopType, shirtType, year);
 	}
-	
+
 	/**
 	 * @methodtype constructor
 	 */
@@ -79,43 +82,74 @@ public class ShirtPhoto extends Photo {
 		this.initialize(shop, shopType, shirtType, year);
 	}
 
-	/**
-	 * @methodtype Constructor
-	 */
-	public ShirtPhoto(ShirtType shirtType) {
-		super();
-		this.initialize(shirtType);
-	}	
-	
-	/**
-	 * @methodtype Constructor
-	 */
-	public ShirtPhoto(PhotoId myId, ShirtType shirtType) {
-		super(myId);
-		this.initialize(shirtType);
-	}
-
-	
 	public void initialize(String shop, String shopType, String shirtType, int year) {
-		ShirtType type = ShirtManager.getInstance().createShirtType(shop, shopType, shirtType, year);
-		ShirtManager.getInstance().createShirt(type);
-	}
-	
-	public void initialize(ShirtType type) {
-		ShirtManager.getInstance().createShirt(type);
+		this.shop 			= shop;
+		this.shopType 	= shopType;
+		this.shirtType 	= shirtType;
+		this.year				= year;
 	}
 
 	/**
-	 * @return the shirt
+	 * @methodtype setter
 	 */
-	public Shirt getShirt() {
-		return shirt;
+	public void setShop(String shop) {
+		this.shop = shop;
 	}
 
 	/**
-	 * @param shirt the shirt to set
+	 * @methodtype setter
 	 */
-	public void setShirt(Shirt shirt) {
-		this.shirt = shirt;
+	public void setShopType(String shopType) {
+		this.shopType = shopType;
+	}
+
+	/**
+	 * @methodtype setter
+	 */
+	public void setShirtType(String shirtType) {
+		this.shirtType = shirtType;
+	}
+
+	/**
+	 * @methodtype setter
+	 */
+	public void setYear(int year) {
+		// Assertion DbC
+		// Year can be at maximum current Year
+		if (year <= Year.now().getValue()) {
+			this.year = year;
+		}
+		else {
+			// No need for Exception just set an Default Value
+			this.year = DEF_YEAR;
+		}
+	}
+
+	/**
+	 * @methodtype getter
+	 */
+	public String getShop() {
+		return shop;
+	}
+
+	/**
+	 * @methodtype getter
+	 */
+	public String getShopType() {
+		return shopType;
+	}
+
+	/**
+	 * @methodtype getter
+	 */
+	public String getShirtType() {
+		return shirtType;
+	}
+
+	/**
+	 * @methodtype getter
+	 */
+	public int getYear() {
+		return year;
 	}
 }
