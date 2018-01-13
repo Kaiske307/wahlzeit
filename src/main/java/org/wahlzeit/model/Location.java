@@ -26,21 +26,35 @@
 
 package org.wahlzeit.model;
 
-
-
 // Location Class
 public class Location{
 	
 	/*
 	 * Class Variables and Constants
 	 */
-	public CartesianCoordinate Coords;
+	public CartesianCoordinate	cCoords;
+	public SphericCoordinate 	sCoords;
 	
 	/**
 	 * @methodtype Constructor
 	 */
 	public Location(double x, double y, double z) {
-		Coords = new CartesianCoordinate(x, y, z);
+		cCoords = CartesianCoordinate.getCartesianCoordinate(x, y, z);
+		
+		SphericCoordinate tempCoord = null;
+		double radius = Math.sqrt(x * x + y * y + z * z);
+		if (radius == 0.0) {
+			tempCoord = SphericCoordinate.getSphericCoordinate(0.0, 0.0, 0.0);
+		}
+
+		double longitude = Math.atan2(y, x);
+		double latitude = Math.acos(z / radius);
+		tempCoord = SphericCoordinate.getSphericCoordinate(longitude, latitude, radius);
+		
+		if(tempCoord != null) {
+			sCoords = tempCoord;
+		}
+			
 	}
 	
 }
