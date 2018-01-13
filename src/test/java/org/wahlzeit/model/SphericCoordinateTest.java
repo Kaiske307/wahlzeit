@@ -31,7 +31,7 @@ import org.junit.Test;
 public class SphericCoordinateTest {
 
 	private static final double MAX_DELTA = 1E-10;
-	private static final double EARTH_RADIUS = 6371; // Median Earth Radius needed for Spherical Distance Test in km
+	private static final double EARTH_RADIUS = 6371000; // Median Earth Radius needed for Spherical Distance Test
 	
 	private SphericCoordinate sphericCoord1;
 	private SphericCoordinate sphericCoord2;
@@ -43,9 +43,9 @@ public class SphericCoordinateTest {
 	 */
 	@Before
 	public void setUp() throws Exception {
-		sphericCoord1 = SphericCoordinate.getSphericCoordinate(0.0, 0.0, 0.0);
-		sphericCoord2 = SphericCoordinate.getSphericCoordinate(Math.PI / 4, Math.PI, 7.6);
-		sphericCoord3 = SphericCoordinate.getSphericCoordinate(0.33, -1.2, 4.4);
+		sphericCoord1 = new SphericCoordinate();
+		sphericCoord2 = new SphericCoordinate(Math.PI / 4, Math.PI, 7.6);
+		sphericCoord3 = new SphericCoordinate(0.33, -1.2, 4.4);
 	}
 	
 	/**
@@ -68,7 +68,7 @@ public class SphericCoordinateTest {
 
 		assertEquals(0.33, sphericCoord3.getLongitude(), MAX_DELTA);
 		assertEquals(-1.2, sphericCoord3.getLatitude(),  MAX_DELTA);
-		assertEquals(4.4, sphericCoord3.getRadius(),    MAX_DELTA);
+		assertEquals(0.33, sphericCoord3.getRadius(),    MAX_DELTA);
 
 	}
 
@@ -81,6 +81,8 @@ public class SphericCoordinateTest {
 		assertEquals(sphericCoord2.asSphericCoordinate(), sphericCoord2);
 
 		assertEquals(sphericCoord1.asCartesianCoordinate().asSphericCoordinate(), sphericCoord1);
+		assertEquals(sphericCoord2.asCartesianCoordinate().asSphericCoordinate(), sphericCoord2);
+		assertEquals(sphericCoord3.asCartesianCoordinate().asSphericCoordinate(), sphericCoord3);
 	}
 
 	/**
@@ -96,6 +98,12 @@ public class SphericCoordinateTest {
 		//check same distance in both directions
 		assertEquals(sphericCoord1.getDistance(sphericCoord2), sphericCoord2.getDistance(sphericCoord1), MAX_DELTA);
 		assertEquals(sphericCoord2.getDistance(sphericCoord3), sphericCoord3.getDistance(sphericCoord2), MAX_DELTA);
+
+		//check correct distance
+		assertEquals(sphericCoord3.getRadius(), sphericCoord3.getDistance(new SphericCoordinate()), MAX_DELTA);
+
+		//check invalid distance
+		assertEquals(Double.POSITIVE_INFINITY, sphericCoord1.getDistance(null), 0.0);
 	}
 
 	/**
@@ -117,8 +125,8 @@ public class SphericCoordinateTest {
 	public void testSphericDistance() {
 		// Eg Hometown to Erlangen
 		// https://www.kompf.de/trekka/distance.php?lat1=52.5164&lon1=13.3777&lat2=38.692668&lon2=-9.177944
-		SphericCoordinate homeTown = SphericCoordinate.getSphericCoordinate(0.17090864428791, 0.92705309974659, EARTH_RADIUS);
-		SphericCoordinate erlangen = SphericCoordinate.getSphericCoordinate(0.19219495909791, 0.86550301647746,  EARTH_RADIUS);
+		SphericCoordinate homeTown = new SphericCoordinate(0.17091, 0.92705, EARTH_RADIUS);
+		SphericCoordinate erlangen = new SphericCoordinate(0.19219, 0.8655,  EARTH_RADIUS);
 		
 		double distance = homeTown.getDistance(erlangen);
 		assertEquals(distance, 401.6, 1.0);
@@ -126,10 +134,12 @@ public class SphericCoordinateTest {
 		CartesianCoordinate homeTownCart = homeTown.asCartesianCoordinate();
 		CartesianCoordinate erlangenCart = erlangen.asCartesianCoordinate();
 
-		assertEquals(distance, erlangenCart.getCartesianDistance(homeTownCart), EARTH_RADIUS);
-		assertEquals(distance, erlangenCart.getSphericDistance(homeTown), EARTH_RADIUS);
-		assertEquals(distance, homeTown.getCartesianDistance(erlangenCart), EARTH_RADIUS);
+		assertEquals(distance, erlangenCart.getSphericDistance(homeTownCart), 2.0);
+		assertEquals(distance, erlangenCart.getSphericDistance(homeTown), 2.0);
+		assertEquals(distance, homeTown.getSphericDistance(erlangenCart), 2.0);
 
+		assertEquals(Double.POSITIVE_INFINITY, homeTown.getSphericDistance(null), 0.0);
+		assertEquals(Double.POSITIVE_INFINITY, homeTownCart.getSphericDistance(null), 0.0);
 	}
 
 }

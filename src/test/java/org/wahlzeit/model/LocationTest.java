@@ -20,7 +20,7 @@ public class LocationTest {
 
 	@Test
 	public void testLocation() {
-//		assertEquals(testLocation2, testLocation3);
+		assertEquals(testLocation2, testLocation3);
 		assertNotEquals(testLocation1, testLocation3);
 	}
 

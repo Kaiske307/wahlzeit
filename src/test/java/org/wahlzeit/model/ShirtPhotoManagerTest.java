@@ -49,6 +49,34 @@ public class ShirtPhotoManagerTest {
 
 	@Test
 	public void test(){
+		ShirtPhoto pic1 = new ShirtPhoto("selfmade", "Retailer", "TShirt", 2012);
+		PhotoId    id	= new PhotoId(10);
+		ShirtPhoto pic2 = new ShirtPhoto(id, "impericon", "Internet", "Sweater", 2015);
+		ShirtPhoto pic3 = new ShirtPhoto(id, "impericon", "Retailer", "TShirt",  2015);
+		
+        PhotoManager manager = ShirtPhotoManager.getInstance(); 
+    	
+        assertNotNull(manager);
+
+        try {
+            manager.addPhoto(pic1);
+            manager.addPhoto(pic2);
+        } catch (IOException exception) {
+            assertNull(exception);
+        }
+        assertTrue(manager.hasPhoto(pic1.id));
+        assertTrue(manager.hasPhoto(pic2.id));
+        assertNotNull(manager.getPhoto(pic1.id));
+        assertNotNull(manager.getPhoto(pic2.id));
+
+        try {
+            expException.expect(IllegalStateException.class);
+            manager.addPhoto(pic3);
+        } catch (IOException exception) {
+            assertNotNull(exception);
+        }
+        assertFalse(manager.hasPhoto(pic3.id));
+        assertNull(manager.getPhoto(pic3.id));
 	}
 
 }

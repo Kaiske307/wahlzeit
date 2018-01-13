@@ -22,15 +22,18 @@
  * <http://www.gnu.org/licenses/>.
  */
 package org.wahlzeit.model;
-import org.wahlzeit.model.CartesianCoordinate;
 
 import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * @author kaibo
+ *
+ */
 public class CartesianCoordinateTest {
-	private static final double MAX_DELTA = 1;
+	private static final double MAX_DELTA = 1E-10;
 	
 	private CartesianCoordinate cartCoord1;
 	private CartesianCoordinate cartCoord2;
@@ -42,10 +45,10 @@ public class CartesianCoordinateTest {
 	 */
 	@Before
 	public void setUp() throws Exception {
-		cartCoord1   = CartesianCoordinate.getCartesianCoordinate(0.0, 0.0, 0.0);
-		cartCoord2   = CartesianCoordinate.getCartesianCoordinate(10.6, 8.4, 7.6);
-		cartCoord3   = CartesianCoordinate.getCartesianCoordinate(8.3, 6.7, 4.4);
-		cartCoord3_1 = CartesianCoordinate.getCartesianCoordinate(8.3, 6.7, 4.4);
+		cartCoord1   = new CartesianCoordinate();
+		cartCoord2   = new CartesianCoordinate(10.6, 8.4, 7.6);
+		cartCoord3   = new CartesianCoordinate(8.3, 6.7, 4.4);
+		cartCoord3_1 = new CartesianCoordinate(8.3, 6.7, 4.4);
 
 	}
 
@@ -64,9 +67,9 @@ public class CartesianCoordinateTest {
 		assertEquals(0.0, cartCoord1.getY(), MAX_DELTA);
 		assertEquals(0.0, cartCoord1.getZ(), MAX_DELTA);
 
-		assertEquals(10.6, cartCoord2.getX(), MAX_DELTA);
-		assertEquals(8.4,  cartCoord2.getY(), MAX_DELTA);
-		assertEquals(7.6,  cartCoord2.getZ(), MAX_DELTA);
+		assertEquals(10.6, cartCoord1.getX(), MAX_DELTA);
+		assertEquals(8.4,  cartCoord1.getY(), MAX_DELTA);
+		assertEquals(7.6,  cartCoord1.getZ(), MAX_DELTA);
 
 		assertEquals(8.3, cartCoord3.getX(), MAX_DELTA);
 		assertEquals(6.7, cartCoord3.getY(), MAX_DELTA);
@@ -101,8 +104,8 @@ public class CartesianCoordinateTest {
 		assertEquals(cartCoord2.asCartesianCoordinate(), cartCoord2);
 
 		assertEquals(cartCoord1.asSphericCoordinate().asCartesianCoordinate(), cartCoord1);
-//		assertEquals(cartCoord2.asSphericCoordinate().asCartesianCoordinate(), cartCoord2);
-//		assertEquals(cartCoord3.asSphericCoordinate().asCartesianCoordinate(), cartCoord3);
+		assertEquals(cartCoord2.asSphericCoordinate().asCartesianCoordinate(), cartCoord2);
+		assertEquals(cartCoord3.asSphericCoordinate().asCartesianCoordinate(), cartCoord3);
 
 	}
 
@@ -121,12 +124,12 @@ public class CartesianCoordinateTest {
 		assertEquals(cartCoord2.getDistance(cartCoord3), cartCoord3.getDistance(cartCoord2), MAX_DELTA);
 
 		//check correct distance
-		assertEquals(15.514, cartCoord1.getDistance(cartCoord2), MAX_DELTA);
+		assertEquals(15.514, cartCoord1.getDistance(cartCoord2), 0.1);
 		assertEquals(4.292,  cartCoord2.getDistance(cartCoord3), MAX_DELTA);
 
 
 		//check invalid distance
-//		assertEquals(Double.POSITIVE_INFINITY, cartCoord1.getDistance(null), 0.0);
+		assertEquals(Double.POSITIVE_INFINITY, cartCoord1.getDistance(null), 0.0);
 	}
 
 	/**
@@ -147,8 +150,8 @@ public class CartesianCoordinateTest {
 		double distC1_C2 = cartCoord1.asSphericCoordinate().getSphericDistance(cartCoord2); 
 		double distC2_C1 = cartCoord2.asSphericCoordinate().getSphericDistance(cartCoord1); 
 		
-		assertEquals(distC1_C2, cartCoord1.getCartesianDistance(cartCoord2), 3.0);
-		assertEquals(distC2_C1, cartCoord2.getCartesianDistance(cartCoord1), 3.0);
+		assertEquals(distC1_C2, cartCoord1.getCartesianDistance(cartCoord2), MAX_DELTA);
+		assertEquals(distC2_C1, cartCoord2.getCartesianDistance(cartCoord1), MAX_DELTA);
 	}
 
 }
