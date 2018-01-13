@@ -51,16 +51,7 @@ public final class SphericCoordinate extends AbstractCoordinate{
 	/**
 	 * @methodtype Constructor
 	 */
-	public SphericCoordinate() {
-		longitude 	= DEFAULT_VALUE;
-		latitude  	= DEFAULT_VALUE;
-		radius		= DEFAULT_VALUE;
-	}
-
-	/**
-	 * @methodtype Constructor
-	 */
-	public SphericCoordinate(double longitude, double latitude, double radius) {
+	private SphericCoordinate(double longitude, double latitude, double radius) {
 		// DbC
 		assertLongitude(longitude);
 		assertLatitude(latitude);
@@ -76,7 +67,7 @@ public final class SphericCoordinate extends AbstractCoordinate{
 	/**
 	 * @methodtype Constructor
 	 */
-	public SphericCoordinate(Coordinate coordinate) {
+	private SphericCoordinate(Coordinate coordinate) {
 		assertNotNull(coordinate, SphericCoordinate.class.getName(), "SphericCoordiante(Coordiante)");
 
 		longitude = coordinate.asSphericCoordinate().getLongitude();
@@ -98,7 +89,7 @@ public final class SphericCoordinate extends AbstractCoordinate{
 	 * @methodtype getter
 	 * Original Author StrategicallyInefficient
 	 */
-	public SphericCoordinate getSphericCoordinate(double longitude, double latitude, double radius) {
+	public static SphericCoordinate getSphericCoordinate(double longitude, double latitude, double radius) {
 		
 		SphericCoordinate tempCoord = new SphericCoordinate(longitude, latitude, radius);
 		
@@ -187,7 +178,7 @@ public final class SphericCoordinate extends AbstractCoordinate{
 		double y = radius * Math.sin(longitude) * Math.sin(latitude);
 		double z = radius * Math.cos(longitude);
 
-		return new CartesianCoordinate(x, y, z);
+		return CartesianCoordinate.getCartesianCoordinate(x, y, z);
 	}
 
 	/**

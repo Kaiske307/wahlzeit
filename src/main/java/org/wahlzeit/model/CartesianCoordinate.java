@@ -52,16 +52,7 @@ public final class CartesianCoordinate extends AbstractCoordinate {
 	/**
 	 * @methodtype Constructor
 	 */
-	public CartesianCoordinate() {
-		this.x = DEFAULT_VALUE;
-		this.y = DEFAULT_VALUE;
-		this.z = DEFAULT_VALUE;
-	}
-
-	/**
-	 * @methodtype Constructor
-	 */
-	public CartesianCoordinate(double x, double y, double z) {
+	private CartesianCoordinate(double x, double y, double z) {
 		this.x = x;
 		this.y = y;
 		this.z = z;
@@ -72,7 +63,7 @@ public final class CartesianCoordinate extends AbstractCoordinate {
 	/**
 	 * @methodtype Constructor
 	 */
-	public CartesianCoordinate(Coordinate coordinate) {
+	private CartesianCoordinate(Coordinate coordinate) {
 		assertNotNull(coordinate, CartesianCoordinate.class.getName(), "CartesianCoordinate()");
 
 		this.x = coordinate.asCartesianCoordinate().getX();
@@ -93,7 +84,7 @@ public final class CartesianCoordinate extends AbstractCoordinate {
 	 * @methodtype getter
 	 * Original Author StrategicallyInefficient
 	 */
-	public CartesianCoordinate getCartesianCoordinate(double x, double y, double z) {
+	public static CartesianCoordinate getCartesianCoordinate(double x, double y, double z) {
 		
 		CartesianCoordinate tempCoord = new CartesianCoordinate(x, y, z);
 		
@@ -248,13 +239,13 @@ public final class CartesianCoordinate extends AbstractCoordinate {
 	public SphericCoordinate asSphericCoordinate() {
 		double radius = Math.sqrt(x * x + y * y + z * z);
 		if (radius == 0.0) {
-			return new SphericCoordinate(0.0, 0.0, 0.0);
+			return SphericCoordinate.getSphericCoordinate(0.0, 0.0, 0.0);
 		}
 
 		double longitude = Math.atan2(y, x);
 		double latitude = Math.acos(z / radius);
 
-		return new SphericCoordinate(longitude, latitude, radius);
+		return SphericCoordinate.getSphericCoordinate(longitude, latitude, radius);
 	}
 
 	private void assertClassInvariants() {
