@@ -23,7 +23,9 @@
  */
 package org.wahlzeit.model;
 
+import com.googlecode.objectify.annotation.Serialize;
 
+@Serialize
 public class Shirt {
 
 	protected ShirtType shirtType = null;	
