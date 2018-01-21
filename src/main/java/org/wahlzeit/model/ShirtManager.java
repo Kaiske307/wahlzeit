@@ -26,7 +26,9 @@ package org.wahlzeit.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShirtManager {
+import org.wahlzeit.services.ObjectManager;
+
+public class ShirtManager extends ObjectManager{
 
 	private static ShirtManager instance = new ShirtManager();
 	
