@@ -29,6 +29,21 @@ package org.wahlzeit.model;
 
 import com.googlecode.objectify.annotation.Subclass;
 
+/**	CREATION OF A NEW PHOTO
+ * The creation of a new ShirtPhoto start with one of the Factory Methods createPhoto() in the ShirtPhotoFactory-Class.
+ * The ShirtPhotoFactory is a Singleton. This createPhoto() Method is called by the PhotoUtil.createPhoto().
+ * PhotoUtil.createPhoto() is called by the ShirtPhotoManager Class. This Class is the Entrypoints for new Photos.
+ */
+
+/**	SOLUTION SPACE
+ * Delegation:		seperate-object
+ * Selection:		sub-classing
+ * Configuration:	in-code
+ * Instantiation:	By-class-object
+ * Initialization:	in-second-step
+ * Building:		default
+ */
+
 @Subclass
 public class ShirtPhoto extends Photo {
 
@@ -36,6 +51,9 @@ public class ShirtPhoto extends Photo {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	private Shirt shirt = null;
+
 	
 	/**
 	 * Constants
