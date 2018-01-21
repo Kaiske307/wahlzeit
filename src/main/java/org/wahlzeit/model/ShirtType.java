@@ -37,7 +37,7 @@ public class ShirtType extends DataObject{
 	protected Set<ShirtType>subType = new HashSet<ShirtType>();
 	
 	protected String shop 			= ""; 	// Shop Name
-	protected String shopType		= ""; 	// Shop Type (Webstire, Retailer etc)
+	protected String shopType		= ""; 	// Shop Type (Webstore, Retailer etc)
 	protected String shirtCutType	= ""; 	// Set Shirt Type (TShirt, VNeck, Shirt etc)
 	protected int    year			= 0;	// The year the Shirt was bought
 
