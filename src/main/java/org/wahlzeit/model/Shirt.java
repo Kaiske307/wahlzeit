@@ -25,6 +25,24 @@ package org.wahlzeit.model;
 
 import com.googlecode.objectify.annotation.Serialize;
 
+/**	CREATION OF A NEW TYPE OBJECT
+ * To create a new Shirt Type Object you need to create a new Instance of ShirtType.
+ * This factory Method is called to create a new TypeObject with the given Attributes.
+ * The Attributes are set in the Construcotr of the Class ShirtType with help of the ShirtManager.
+ * The ShirtManager has its own createShirt() Method to create the new Instance of the TypeObject and manages them in a list.
+ * This Factory Method is called by ShirtPhoto.initialize() and the Creation of a Photo is documented in this class.
+ */
+
+
+/**	SOLUTION SPACE
+ * Delegation:		seperate-object
+ * Selection:		on-the-spot
+ * Configuration:	in-code
+ * Instantiation:	in-code
+ * Initialization:	default
+ * Building:		default
+ */
+
 @Serialize
 public class Shirt {
 
