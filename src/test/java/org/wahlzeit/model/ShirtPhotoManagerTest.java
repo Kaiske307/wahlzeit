@@ -3,7 +3,7 @@
  * 
  * org.wahlzeit.model
  * 
- * Copyright (c) 2017 Kai-Malte Böhling
+ * Copyright (c) 2017 Kai-Malte BÃ¶hling
  *
  * This file is part of the Wahlzeit rating application.
  *
@@ -23,14 +23,16 @@
  */
 package org.wahlzeit.model;
 
-import static org.junit.Assert.*;
+import org.junit.Before;
 import org.junit.ClassRule;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.junit.rules.RuleChain;
 import org.junit.rules.TestRule;
-import org.wahlzeit.testEnvironmentProvider.*;
+import org.wahlzeit.testEnvironmentProvider.LocalDatastoreServiceTestConfigProvider;
+import org.wahlzeit.testEnvironmentProvider.RegisteredOfyEnvironmentProvider;
+
+import static org.junit.Assert.*;
+
 
 import java.io.IOException;
 
@@ -41,15 +43,47 @@ public class ShirtPhotoManagerTest {
             outerRule(new LocalDatastoreServiceTestConfigProvider()).
             around(new RegisteredOfyEnvironmentProvider());
 	
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@Rule
-    public final ExpectedException expException = ExpectedException.none();
+	private ShirtPhotoManager shirtPhotoManager;
+
+	private PhotoId photoId;
+	private ShirtPhoto shirtPhoto;
+
+	@Before
+	public void setup() {
+		this.shirtPhotoManager = new ShirtPhotoManager();
+		this.photoId = new PhotoId(42);
+		this.shirtPhoto = new ShirtPhoto(photoId);
+	}
 
 	@Test
-	public void test(){
-		// !!! TODO
+	public void testGetPhotoFromNullId() {
+		ShirtPhoto shirtPhoto = shirtPhotoManager.getPhotoFromId(null);
+		assertNull(shirtPhoto);
+	}
+
+	@Test
+	public void testGetPhotoFromId() {
+		shirtPhotoManager.photoCache.put(photoId, shirtPhoto);
+
+		ShirtPhoto testShirtPhoto = shirtPhotoManager.getPhotoFromId(photoId);
+		assertNotNull(testShirtPhoto);
+		assertEquals(shirtPhoto, testShirtPhoto);
+	}
+
+	@Test
+	public void testDoAddPhoto() {
+		shirtPhotoManager.doAddPhoto(shirtPhoto);
+
+		ShirtPhoto testShirtPhoto = shirtPhotoManager.photoCache.get(photoId);
+		assertNotNull(testShirtPhoto);
+		assertEquals(shirtPhoto, testShirtPhoto);
+	}
+
+	@Test
+	public void testDoHasPhoto() {
+		assertFalse(shirtPhotoManager.doHasPhoto(photoId));
+		shirtPhotoManager.photoCache.put(photoId, shirtPhoto);
+		assertTrue(shirtPhotoManager.doHasPhoto(photoId));
 	}
 
 }
